@@ -104,7 +104,7 @@ body
 
 </style>
 
-<div class="ui fixed top pointing inverted menu labmenu">
+<div class="ui fixed top pointing inverted stackable menu labmenu">
   <header class="header item">
     <i id="toc" class="sitemap icon"></i>
     <a href="../index.html">
@@ -125,13 +125,14 @@ body
       02
     </a>
     
-    <a class="item" href="../../index.html">
-      <i class="home icon"></i>
-    </a>
+    <div class="item">
+      
+    </div>
   </div>
 </div>
 
-<div class="ui segment pushable">
+<div class="ui segment pushable" >
+
   <div class="ui inverted labeled icon left inline vertical sidebar menu">
     
       
@@ -148,7 +149,7 @@ body
     
   </div>
   <div class="pusher" tabindex="-1">
-    <div class="ui basic segment">
+    <div class="ui basic segment" id="labchat">
       <br>
       
       <div  class="ui tab segment lab" data-tab="Lab-JavaScript-01">
@@ -161,8 +162,8 @@ body
         <h1>Node.js</h1>
 <p>If you do not have Node.js installed in you machine, please go to <a href="http://nodejs.org/">nodejs.org</a> and download/install node for your platform. To check if node is working, open a command line/terminal window on your machine and enter <code>node -v</code>. IT should respond as follows:</p>
 <pre><code>&gt; node -v
-v0.13.0-pre</code></pre>
-<p>The work for this lab has been tested with node version 0.13.0. </p>
+v8.9.3</code></pre>
+<p>The work for this lab has been tested with node version 8.9.3 although any version &gt;6.4 should be ok </p>
 
       </div>
      
@@ -285,9 +286,11 @@ v0.13.0-pre</code></pre>
       </div>
      
     </div>
+
   </div>
+
 </div>
-  <div class="ui bottom fixed borderless right menu">
+<!--  <div class="ui bottom fixed borderless right menu">
     <div class="ui right tiny menu">
       <div class="ui mini message segment">
         Frank Walsh (fxwalsh@wit.ie).
@@ -296,7 +299,7 @@ v0.13.0-pre</code></pre>
         </a>
       </div>
     </div>
-  </div>
+  </div>-->
 
 <script>
   $(document).on('keydown', function (e) {
@@ -320,6 +323,8 @@ v0.13.0-pre</code></pre>
 });
 
 </script>
+
+
 
     <footer>
 
