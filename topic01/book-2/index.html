@@ -125,6 +125,10 @@ body
       02
     </a>
     
+    <a class="item" data-tab="03">
+      03
+    </a>
+    
     <div class="item">
       
     </div>
@@ -162,14 +166,14 @@ body
         <h1>Node.js</h1>
 <p>If you do not have Node.js installed in you machine, please go to <a href="http://nodejs.org/">nodejs.org</a> and download/install node for your platform. To check if node is working, open a command line/terminal window on your machine and enter <code>node -v</code>. IT should respond as follows:</p>
 <pre><code>&gt; node -v
-v0.13.0-pre</code></pre>
+v8.4.0</code></pre>
 <p>The work for this lab has been tested with node version 0.13.0. </p>
 
       </div>
      
       <div  class="ui tab segment lab" data-tab="02">
         <h1>Javascript (JS) Functions.</h1>
-<p>The related sample code accompanying the Javascript lecture slides (available <a href="https://moodle.wit.ie/pluginfile.php/1555674/mod_resource/content/3/lab3/source/functions.js">here</a>) should be used as a guide to implementing the exercises for this lab.</p>
+<p>The related sample code accompanying the Javascript lecture slides (available <a href="./javascript-lab_files/functions.js">here</a>) should be used as a guide to implementing the exercises for this lab.</p>
 <h2>Start.</h2>
 <p>Use <a href="./javascript-lab_files/lab_functions.js">this JS code</a> as the starting point for this lab exercise. Open the downloaded file and examine its initial content.</p>
 <h2>Functions.</h2>
@@ -344,6 +348,37 @@ The <em>split</em> methods segments a string based on a given character, ’-’
 <pre><code>    console.log(&#39;Car age: &#39; + car1.howOld()) </code></pre>
 <p>The log statement should display ‘Car age: 5’.</p>
 <hr>
+
+      </div>
+     
+      <div  class="ui tab segment lab" data-tab="03">
+        <h2>ES6/ES2015.</h2>
+<p><a href="./javascript-lab_files/es6.zip">This archive</a> contains the sample ES6-compliant JavaScript code discussed in the lecture. Unzip it, in the terminal window go to its base folder (es6samples) and type the command:</p>
+<pre><code class="lang-bash">   $ npm install</code></pre>
+<p>This will download some libraries; it may take some time.</p>
+<p>We will cover the npm tool later in the semester. Assuming their are no errors, you can execute any of the samples with the command:</p>
+<pre><code class="lang-bash">     $ npm run babel-node [sample file name]</code></pre>
+<pre><code> e,g, npm run babel-node 02_es6_templates.js</code></pre>
+<p>This command is also quite slow, so, be patient.</p>
+<p>Unzip this archive and copy the file Car.js into the es6samples folder. Car.js contains the definition for a custom class, Car - study the code. Now create a new file in es6samples, called useCar.js and paste in this code:</p>
+<pre><code class="lang-bash">    import Car from &#39;./car.js&#39; ;
+
+    let car1 = new Car(&#39;Joe Bloggs&#39;,&#39;3 Walkers Lane&#39;,
+                       &#39;Toyota&#39;,&#39;Corolla&#39;,1.8,&#39;10-WD-1058&#39;);
+    car1.addPreviousOwner( &#39;Pat Smith&#39;, &#39;1 Main Street&#39;);
+    car1.addPreviousOwner( &#39;Pat Smith&#39;, &#39;1 Main Street&#39;);
+    car1.addPreviousOwner( &#39;Sheila Dwyer&#39;, &#39;2 High Street&#39;);
+    console.log(`Path Smith ? ${car1.wasOwnedBy(&#39;Pat Smith&#39;)}`);
+
+    car1.newOwner(&#39;Donal Dunne&#39;,&#39;5 Kings Way&#39;);
+    console.log(car1.previous_owners[2].name);
+    console.log(car1.owner);
+    console.log(`Car age: ${car1.howOld()}`);</code></pre>
+<p>Run the script:</p>
+<pre><code class="lang-bash">   $ npm run babel-node useCar.js</code></pre>
+<p>The Car class is missing the features aspect, e.g. Alarm, Parking assist. You are required to examine functions.js to review how it was implemented and then update the Car class definition to accommodate it. To prove your code works, add the following to the end of useCar.js:</p>
+<pre><code class="lang-bash">  console.log(`Alarm: ${aCar.hasFeature(&#39;alarm&#39;)}` );</code></pre>
+<p>and run it.</p>
 
       </div>
      
