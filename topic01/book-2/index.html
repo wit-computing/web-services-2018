@@ -355,12 +355,17 @@ The <em>split</em> methods segments a string based on a given character, ’-’
         <h2>ES6/ES2015.</h2>
 <p><a href="./javascript-lab_files/es6.zip">This archive</a> contains the sample ES6-compliant JavaScript code discussed in the lecture. Unzip it, in the terminal window go to its base folder (es6samples) and type the command:</p>
 <pre><code class="lang-bash">   $ npm install</code></pre>
-<p>This will download some libraries; it may take some time.</p>
-<p>We will cover the npm tool later in the semester. Assuming their are no errors, you can execute any of the samples with the command:</p>
+<p>This will download the babel libraries required transcode and run your ES6 scripts from the Command Line Interface(CLI); it may take some time.
+To configure babel to transcode to ES6, create a new file called <strong>.babelrc</strong> in the <em>es6samples</em> folder and enter the following:</p>
+<pre><code class="lang-bash">{
+  &quot;presets&quot;: [&quot;env&quot;]
+}</code></pre>
+<p>This will transpile ES6+ scripts down to ES5 using the <strong>babel-presets-env</strong> module.</p>
+<p>We will cover the npm tool later in the semester. Assuming their are no errors, you can now execute any of the samples with the command:</p>
 <pre><code class="lang-bash">     $ npm run babel-node [sample file name]</code></pre>
-<pre><code> e,g, npm run babel-node 02_es6_templates.js</code></pre>
-<p>This command is also quite slow, so, be patient.</p>
-<p>Unzip this archive and copy the file Car.js into the es6samples folder. Car.js contains the definition for a custom class, Car - study the code. Now create a new file in es6samples, called useCar.js and paste in this code:</p>
+<p>(e.g.  <code>npm run babel-node 02_es6_templates.js</code>)
+This command can be quite slow the first time, so be patient.</p>
+<p>Unzip this archive and copy the file <strong>Car.js</strong> into the <em>es6samples</em> folder. <strong>Car.js</strong> contains the definition for a custom class, Car - study the code. Now create a new file in <em>es6samples</em>, called <strong>useCar.js</strong> and paste in this code:</p>
 <pre><code class="lang-bash">    import Car from &#39;./car.js&#39; ;
 
     let car1 = new Car(&#39;Joe Bloggs&#39;,&#39;3 Walkers Lane&#39;,
@@ -376,7 +381,7 @@ The <em>split</em> methods segments a string based on a given character, ’-’
     console.log(`Car age: ${car1.howOld()}`);</code></pre>
 <p>Run the script:</p>
 <pre><code class="lang-bash">   $ npm run babel-node useCar.js</code></pre>
-<p>The Car class is missing the features aspect, e.g. Alarm, Parking assist. You are required to examine functions.js to review how it was implemented and then update the Car class definition to accommodate it. To prove your code works, add the following to the end of useCar.js:</p>
+<p>The Car class is missing the features aspect, e.g. Alarm, Parking assist. You are required to examine <strong>functions.js</strong> to review how it was implemented and then update the Car class definition to accommodate it. To prove your code works, add the following to the end of <strong>useCar.js</strong>:</p>
 <pre><code class="lang-bash">  console.log(`Alarm: ${aCar.hasFeature(&#39;alarm&#39;)}` );</code></pre>
 <p>and run it.</p>
 
