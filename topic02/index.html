@@ -50,36 +50,41 @@ figcaption
     
 
 
-  
 
 
 
 
 
-<header class="ui middle aligned center aligned stackable grid segment">
 
-  <a class="ui blue left corner label">
+
+  <header class="ui middle aligned center aligned stackable grid segment">
+
+    <a class="ui blue left corner label">
   <div id="showTOC" class="popup" data-content="Reveal TOC">
     <i id="toc" class="sitemap big  icon"></i>
   </div>
 </a>
 
-  <div class="seven wide center aligned column">
-    <h2 class="headder"> Web Services Development</h2>
-    <p> All Labs in the Course </p>
-  </div>
+    <div class="ui seven wide center aligned column grid">
+      <div class="ui row">
+        <h2> Introduction to Version Control and Node.js </h2>
+      </div>
+      <div class="ui row">
+        
+      </div>
+    </div>
 
-  
+    
 
 
 
 <div class="two wide column sitemap">
   <div class="popup" data-content="To the top level Topics for this Module...">
-    <a href="index.html"> <i class="huge home icon"></i> Module </a>
+    <a href="../index.html"> <i class="huge home icon"></i> Module </a>
   </div>
 </div>
 
-  
+    
 <div class="four wide column">
   <div class="ui center aligned mini message segment">
     Frank Walsh (fxwalsh@wit.ie).
@@ -89,43 +94,63 @@ figcaption
   </div>
 </div>
 
-  
+    
 <div class="ui two wide right aligned column">
   <div class="ui left aligned middle aligned very basic grid">
     <div class="row">
       <div class="popup" data-content="All Slides in Course">
-        <a href="talkwall.html"> <i class="large film icon"></i> All Slides </a>
+        <a href="../talkwall.html"> <i class="large film icon"></i> All Slides </a>
       </div>
     </div>
     <div class="row">
       <div class="popup" data-content="All Labs in Course">
-        <a href="labwall.html"> <i class="large lab icon"></i> All Labs </a>
+        <a href="../labwall.html"> <i class="large lab icon"></i> All Labs </a>
       </div>
     </div>
   </div>
 </div>
 
 
-</header>
+  </header>
 
 
 
-<div class="ui bottom attached segment pushable">
+
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: ''
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+
+
+
+
+<div class="ui segment pushable">
   <div class="ui inverted labeled icon left inline vertical sidebar menu">
-    
-    <a class="item" href="topic01/book-1/index.html">
-      Lab-JavaScript-01
-    </a>
-    
-    <a class="item" href="topic01/book-2/index.html">
-      Lab-JavaScript-02
-    </a>
-    
-    <a class="item" href="topic02/book-1/index.html">
-      node_lab1
-    </a>
-    
+    <div class="header">
+      <a class="item" href="#">
+        Introduction to Version Control and Node.js
+      </a>
+    </div>
+    <div class="menu">
+      
+      <a class="item" href="talk-1/git.pdf">
+        Git Overview
+      </a>
+      
+      <a class="item" href="talk-2/node.pdf">
+        Node
+      </a>
+      
+      <a class="item" href="book-1/index.html">
+        node_lab1
+      </a>
+      
+    </div>
   </div>
+
   <div class="pusher">
     <div class="ui container">
       <div class="ui basic segment">
@@ -134,19 +159,19 @@ figcaption
           
 <div class="ui raised link card">
   <div class="content">
-    <div class="right floated meta"><i class="lab large icon"></i></div>
-    <div class="header"> Lab-JavaScript-01</div>
+    <div class="right floated meta"><i class="film large icon"></i></div>
+    <div class="header"> Git Overview</div>
   </div>
     
-    <a href="topic01/book-1/index.html">
-      
+    <a href="talk-1/git.pdf" target="_blank">
+    
       <div class="image">
-        <img class="ui bordered rounded image" src="topic01/book-1/img/main.png">
+        <img class="ui bordered rounded image" src="talk-1/git.png">
       </div>
     </a>
     <div class="content">
       <div class="description">
-        <p>By completing a set of small exercises, this lab helps you develop an understanding of the basic syntax and fundemental concepts of th JaavaScript language. You should use the sample code provided with the lecture slides as an aid to this task.</p>
+        <p>This talk provides a brief git overview - just enought to get through the assignments and labs!</p>
 
       </div>
     </div>
@@ -158,19 +183,19 @@ figcaption
           
 <div class="ui raised link card">
   <div class="content">
-    <div class="right floated meta"><i class="lab large icon"></i></div>
-    <div class="header"> Lab-JavaScript-02</div>
+    <div class="right floated meta"><i class="film large icon"></i></div>
+    <div class="header"> Node</div>
   </div>
     
-    <a href="topic01/book-2/index.html">
-      
+    <a href="talk-2/node.pdf" target="_blank">
+    
       <div class="image">
-        <img class="ui bordered rounded image" src="topic01/book-2/img/main.png">
+        <img class="ui bordered rounded image" src="talk-2/node.png">
       </div>
     </a>
     <div class="content">
       <div class="description">
-        <p>The main aim of this lab is to prepare you for working with Node.js. The lab will focus on the behaviour constructs of JS, specifically, <strong>functions, methods and constructors</strong>.</p>
+        <p>This topic provides an introduction to Node and Express. You will cover Server-side Javascript, event-driven web servers and the Express package.</p>
 
       </div>
     </div>
@@ -186,10 +211,10 @@ figcaption
     <div class="header"> node_lab1</div>
   </div>
     
-    <a href="topic02/book-1/index.html">
+    <a href="book-1/index.html">
       
       <div class="image">
-        <img class="ui bordered rounded image" src="topic02/book-1/img/main.png">
+        <img class="ui bordered rounded image" src="book-1/img/main.png">
       </div>
     </a>
     <div class="content">
@@ -203,8 +228,9 @@ figcaption
 </div>
 
           
+
         </div>
-    </div>
+      </div>
     </div>
   </div>
 </div>
