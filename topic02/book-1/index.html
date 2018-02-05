@@ -420,8 +420,12 @@ git commit -m &quot;set up and initial configuration&quot;</code></pre>
      
       <div  class="ui tab segment lab" data-tab="04">
         <h1>The &quot;Hello World&quot; HTTP Server</h1>
-<p>We will be using node as a web application platform. In this step we&#39;ll set up a simple HTTP server that responds to every request with the plain text message &quot;Hello World&quot;. In the <em>node-lab1</em> create a new file called  <em>server.js</em>  with the following contents:</p>
-<pre><code class="lang-javascript">// Load the http module to create an http server.
+<p>We will be using node as a web application platform. In this step we&#39;ll set up a simple HTTP server that responds to every request with the plain text message &quot;Hello World&quot;.</p>
+<ul>
+<li>In the <em>node-lab1</em> create a new file called  <em>index.js</em>  with the following contents:</li>
+</ul>
+<pre><code class="lang-javascript">
+// Load the http module to create an http server.
 import http from &#39;http&#39;;
 import dotenv from &#39;dotenv&#39;
 
@@ -446,39 +450,55 @@ To run the server open a terminal/command window in the node-lab1 folder and ent
 <img src="./img/hello_world.png" alt="Node Hello World"></p>
 <p>The connection function is invoked with a <strong>req</strong> and <strong>res</strong> object. The <strong>req</strong> object represents the HTTP request and is a readable stream that emits &#39;data&#39; events for each incoming piece of data (like a form submission or file upload). The <strong><em>res</em></strong> object represents the HTTP response and is used to send data back to the client. In our case we are simply sending a 200 OK header, as well as the body &#39;Hello World&#39;.</p>
 <h3>How bad?</h3>
-<p>Now lets check how bad your code using ESLint. </p>
+<p>Now lets check how bad your code using ESLint.</p>
 <ul>
 <li>Run the following command to lint your code:<pre><code class="lang-bash">./node_modules/.bin/eslint index.js</code></pre>
 The Google style guide requires each statement end with a semicolon. The linter should highlight this and you should see the following output:
 <img src="./img/linter.png" alt="Node Hello World">
-You can fix manually or use the command <code>./node_modules/.bin/eslint index.js`--fix</code> to resolve the problems(if the linter suggests it)
+You can fix manually or use the command <code>./node_modules/.bin/eslint index.js --fix</code> to resolve the problems(if the linter suggests it).
 When the code is in good order, the linter should return nothing. Nice code!</li>
 </ul>
-<h3>Node&#39;s Module system</h3>
-<p>Node.js provides a simple module system that lets you structure your program into different files. In our <em>server.js</em> example, we use the core http module to create our HTTP service. You can also write your own modules. When creating a module, this can be interpreted as moving all related functions into a file. For example, update your <em>server.js</em> file as follows:</p>
-<pre><code class="lang-javascript">// Load the http module to create an http server.
-import http from &#39;http&#39;;
-import config from &#39;./config&#39;;
-import greeting  from &#39;./greeting&#39;
-
-// Configure our HTTP server to respond with Hello World to all requests.
-var server = http.createServer((req, res) =&gt; {
-  const language = req.headers[&#39;accept-language&#39;];
-  const resp_language = greeting[language]?language:&#39;en&#39;;
-  res.writeHead(200, {&#39;Content-Type&#39;: &#39;text/plain&#39; , &#39;Content-Language&#39;: resp_language});
-  res.end(greeting[resp_language]);
-});
-
-server.listen(config.port);
-
-console.log(&quot;Server running at &quot; + config.port);</code></pre>
-<p>Now create a new file called &#39;greeting.js&#39; in the same folder with the following content:</p>
+<h3>Node&#39;s Module System</h3>
+<p>Node.js provides a simple module system that lets you structure your program into different files. In our <em>index.js</em> example, we use the core http module to create our HTTP service. You can also write your own modules. When creating a module, this can be interpreted as moving all related functions into a file.</p>
+<ul>
+<li>Create a new file called &#39;greeting.js&#39; in the same folder with the following content:  </li>
+</ul>
 <pre><code class="lang-javascript">const greeting = {
     en: &quot;Hello World!&quot;,
     fr: &quot;Bonjour!&quot;
 }
 
 export default greeting;</code></pre>
+<ul>
+<li>Update your <em>index.js</em> file as follows:</li>
+</ul>
+<pre><code class="lang-javascript">// Load the http module to create an http server.
+import http from &#39;http&#39;;
+import dotenv from &#39;dotenv&#39;;
+import greeting from &#39;./greeting.js&#39;;
+
+dotenv.config();
+const port = process.env.PORT;
+
+// Configure our HTTP server to respond with Hello World to all requests.
+const server = http.createServer((req, res) =&gt; {
+  let lang = req.headers[&#39;accept-language&#39;];
+  const defaultLang=&#39;en&#39;;
+  if (!greeting[lang]) lang=defaultLang;
+  const response={
+    lang: lang,
+    message: greeting[lang],
+  };
+
+  res.writeHead(200, {&#39;Content-Type&#39;: &#39;text/plain&#39;,
+                      &#39;Content-Language&#39;: response.lang});
+  res.end(response.message);
+});
+
+server.listen(port);
+
+// Put a friendly message on the terminal
+console.log(`Server running at ${port}`);</code></pre>
 <p>Now test your file again using a browser. The <code>export</code> expose greeting to other modules that require them. To access the exported functions in our simple server, we can load the greeting module using the require function in <code>import greeting from (&#39;./greeting&#39;);</code>. The server gets the accepted language from the requesting process using <code>req.headers[&quot;accept-language&quot;]</code> . To set the accept-language HTTP header of the request:</p>
 <ul>
 <li>install a suitable REST client. This lab will opt for <a href="https://www.getpostman.com/">Postman</a>.</li>
@@ -490,9 +510,11 @@ export default greeting;</code></pre>
 </blockquote>
 <p>As you will see, the core modules give you very few modules. Most of the real power in Node.js is contained in the third party modules available through the Node Package Management system(NPM).</p>
 <h3>Commit your changes</h3>
-<p>Commit the changes you have just made using git.</p>
-<pre><code class="lang-script">git add -A
+<ul>
+<li>Commit the changes you have just made using git.<pre><code class="lang-bash">git add -A
 git commit -m &quot;node-lab1,  simple server&quot;</code></pre>
+</li>
+</ul>
 
       </div>
      
@@ -504,98 +526,112 @@ git commit -m &quot;node-lab1,  simple server&quot;</code></pre>
   |-javascript
   |-stylesheets</code></pre>
 </li>
-<li>Add the solution to <em>lab2</em> from <a href="https://drive.google.com/file/d/0BxtnCYpIWp3Da215RGhIT0JyYjQ/view?usp=sharing">here</a>. Make sure the files are in the public folder.</li>
-<li>In node-lab-1, replace the contents of <strong>server.js</strong> with the following javascript:</li>
+<li>Get the solution to the <a href="./files/static.zip"><em>html/css lab</em></a> and place the files directly into the <em>public</em> folder(the <em>index.hmtl</em> file should in the <em>public</em> folder).</li>
+<li>In node-lab-1, replace the contents of <strong>index.js</strong> with the following javascript:</li>
 </ul>
 <pre><code class="lang-javascript">
-import config from &#39;./config&#39;;
+import dotenv from &#39;dotenv&#39;;
 import express from &#39;express&#39;;
+
+dotenv.config();
 
 const server = express();
 
+const port = process.env.PORT;
+
 server.use(express.static(&#39;public&#39;));
 
-server.listen(config.port, () =&gt; {
-  console.info(&#39;Express listening on port&#39;, config.port);
+server.listen(port, () =&gt; {
+  console.info(`Server running at ${port}`);
 });</code></pre>
 <ul>
 <li>Now test the application as before in a browser. It should display the default resource (index.html) from the public folder.</li>
 </ul>
-<h4>Simple Routing</h4>
-<p>Express gives us an easy way of mapping specific URL paths to Javascript functions. You will now replicate the functionality from the &quot;Hello World&quot; section so that a HTTP GET request for the URL path  &#39;/greeting/&#39; will respond with &quot;Hello World&quot;. Modify the server.js by adding an <code>app.get([route],[callback function])</code>.
-- Modify the server.js script to include a route for /greeting that responds with &quot;hello world&quot;.</p>
-<pre><code class="lang-javascript">import express from &#39;express&#39;;
-//Add greeting module
+<h4>Simple Routing using Express</h4>
+<p>Express gives us an easy way of mapping specific URL paths to Javascript functions. You will now replicate the functionality from the &quot;Hello World&quot; section so that a HTTP GET request for the URL path  &#39;/greeting/&#39; will respond with &quot;Hello World&quot;. Modify the index.js by adding an <code>app.get([route],[callback function])</code>.
+- Modify the index.js script to include a route for /greeting that responds with &quot;hello world&quot;.</p>
+<pre><code class="lang-javascript">import dotenv from &#39;dotenv&#39;;
+import express from &#39;express&#39;;
 import greeting from &#39;./greeting&#39;;
-//create an express app
+
+dotenv.config();
+
 const app = express();
 
-// Configure the app to serve up content from public directory
+const port = process.env.PORT;
+
 app.use(express.static(&#39;public&#39;));
 
-//add route for /greeting
-app.get(&#39;/greeting&#39;,(req, res)=&gt;{
-  const language = req.headers[&quot;accept-language&quot;];
-  const resp_language = greeting[language]?language:&#39;en&#39;;
-  res.writeHead(200, {&quot;Content-Type&quot;: &quot;text/plain&quot;});
-  res.end(greeting[resp_language]);
+// add route for /greeting
+app.get(&#39;/greeting&#39;, (req, res)=&gt;{
+  let lang = req.headers[&#39;accept-language&#39;];
+  const defaultLang=&#39;en&#39;;
+  if (!greeting[lang]) lang=defaultLang;
+  const response={
+    lang: lang,
+    message: greeting[lang],
+  };
+
+  res.writeHead(200, {&#39;Content-Type&#39;: &#39;text/plain&#39;,
+                      &#39;Content-Language&#39;: response.lang});
+  res.end(response.message);
 });
 
-app.listen(config.port)
 
-// Put a friendly message on the terminal
-console.log(&quot;Server running on port &quot; +config.port);</code></pre>
+app.listen(port, () =&gt; {
+  console.info(`Server running at ${port}`);
+});</code></pre>
 <h3>Commit and Push to Github</h3>
 <p>Commit your changes using git as before and push your changes to your remote repository.</p>
 <pre><code class="lang-script">git add -A
 git commit -m &quot;Changed to express app&quot;
 git push origin master</code></pre>
 <h3>Contacts API</h3>
-<p>We wish to replace the API used in last weeks lap with an Express API. Ultimately this will allow us to connect to a Mongo database and allow for a more realistic API that can cope with large volumes of data you would expect in a production environment.</p>
+<p> Ultimately we would like our API to use a datav=base such as Mongo and allow for a more realistic API that can cope with large volumes of data you would expect in a production environment.</p>
 <p>Create a new folder called <strong>api</strong> in <strong>node-lab-1</strong>. Create another folder called <strong>contacts</strong> in <strong>api</strong>. Your folder structure should look as follows:</p>
 <pre><code>+node-lab-1
     |-api
        |-contacts</code></pre>
-<p>As before we will use test data for the time being. Create a new file called <strong>contacts.js</strong> in the contacts folder and add the following code:</p>
-<pre><code class="lang-javascript">var contacts = [
+<p>We will use test data for the time being. </p>
+<ul>
+<li>Create a new file called <strong>contacts.js</strong> in the contacts folder and add the following code:</li>
+</ul>
+<pre><code class="lang-javascript">export const contacts = [
   {
-    &quot;name&quot;: &quot;Contact 1&quot;,
-    &quot;address&quot;: &quot;123 Test St&quot;,
-    &quot;phone_number&quot;: &quot;132-3212&quot;
+    &#39;name&#39;: &#39;Contact 1&#39;,
+    &#39;address&#39;: &#39;123 Test St&#39;,
+    &#39;phone_number&#39;: &#39;132-3212&#39;,
   },
   {
-    &quot;name&quot;: &quot;Contact 2&quot;,
-    &quot;address&quot;: &quot;23 Main St&quot;,
-    &quot;phone_number&quot;: &quot;934-4329&quot;
+    &#39;name&#39;: &#39;Contact 2&#39;,
+    &#39;address&#39;: &#39;23 Main St&#39;,
+    &#39;phone_number&#39;: &#39;934-4329&#39;,
   },
   {
-    &quot;name&quot;: &quot;Contact 3&quot;,
-    &quot;address&quot;: &quot;4 Lower St&quot;,
-    &quot;phone_number&quot;: &quot;432-5832&quot;
+    &#39;name&#39;: &#39;Contact 3&#39;,
+    &#39;address&#39;: &#39;4 Lower St&#39;,
+    &#39;phone_number&#39;: &#39;432-5832&#39;,
   },
   {
-    &quot;name&quot;: &quot;Contact 4&quot;,
-    &quot;address&quot;: &quot;49 Upper Street&quot;,
-    &quot;phone_number&quot;: &quot;934-4290&quot;
-  }
-];
-
-export default contacts;</code></pre>
+    &#39;name&#39;: &#39;Contact 4&#39;,
+    &#39;address&#39;: &#39;49 Upper Street&#39;,
+    &#39;phone_number&#39;: &#39;934-4290&#39;,
+  },
+];</code></pre>
 <ul>
 <li>Also in the contacts folder, create a new file called <strong>index.js</strong> and enter the folowing javascript:</li>
 </ul>
 <pre><code class="lang-javascript">import express from &#39;express&#39;;
-import contacts from &#39;./contacts&#39;;
+import {contacts} from &#39;./contacts&#39;;
 
-const router = express.Router();
-
+const router = express.Router(); // eslint-disable-line
 router.get(&#39;/&#39;, (req, res) =&gt; {
-  res.send({ contacts: contacts });
+  res.send({contacts: contacts});
 });
 
 export default router;</code></pre>
 <ul>
-<li>Now update <strong>server.js</strong> to use the new contacts routing script by replacing the contents with the following code</li>
+<li>Now update <strong>index.js</strong> to use the new contacts routing script by replacing the contents with the following code</li>
 </ul>
 <pre><code class="lang-javascript">import config from &#39;./config&#39;;
 import express from &#39;express&#39;;
@@ -612,9 +648,11 @@ server.listen(config.port, config.host, () =&gt; {
 <p>Now test the application again by doing a HTTP GET on localhost/api/contacts. You should see something simlilar toe the following:</p>
 <p><img src="./img/contacts_api_1.png" alt="Get contact details"></p>
 <h3>Challange</h3>
-<p>Try to include in  server-side route for the Hacker News lab you did last week. Follow the same procedure as above.</p>
+<ul>
+<li>Try to include in server-side route for the Hacker News lab you did last week. Follow the same procedure as above.</li>
+</ul>
 <blockquote>
-<p>hint: create a new folder in api for Hacker News. Create a routing script and update server.js to add the Hacker News route.</p>
+<p>hint: create a new folder in api for Hacker News. Create a routing script and update index.js to add the Hacker News route.</p>
 </blockquote>
 
       </div>
@@ -627,7 +665,7 @@ server.listen(config.port, config.host, () =&gt; {
 <!--  <div class="ui bottom fixed borderless right menu">
     <div class="ui right tiny menu">
       <div class="ui mini message segment">
-        Frank Walsh (fxwalsh@wit.ie).
+        Frank Walsh (fxwalsh@wit.ie).
         <a  href="http://creativecommons.org/licenses/by-nc/4.0/" title="External link to http://creativecommons.org/licenses/by-nc/4.0/"
             target="_blank">Creative Commons License
         </a>
