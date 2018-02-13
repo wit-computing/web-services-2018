@@ -639,17 +639,23 @@ export default router;</code></pre>
 <ul>
 <li>Now update <strong>index.js</strong> to use the new contacts routing script by replacing the contents with the following code</li>
 </ul>
-<pre><code class="lang-javascript">import config from &#39;./config&#39;;
+<pre><code class="lang-javascript">import dotenv from &#39;dotenv&#39;;
 import express from &#39;express&#39;;
 import contactsRouter from &#39;./api/contacts&#39;;
 
-const server = express();
+dotenv.config();
 
-server.use(&#39;/api/contacts&#39;, contactsRouter);
-server.use(express.static(&#39;public&#39;));
+const app = express();
 
-server.listen(config.port, config.host, () =&gt; {
-  console.info(&#39;Express listening on port&#39;, config.port);
+const port = process.env.PORT;
+
+app.use(express.static(&#39;public&#39;));
+
+app.use(&#39;/api/contacts&#39;, contactsRouter);
+app.use(express.static(&#39;public&#39;));
+
+app.listen(port, () =&gt; {
+  console.info(`Server running at ${port}`);
 });</code></pre>
 <p>Now test the application again by doing a HTTP GET on localhost/api/contacts. You should see something simlilar toe the following:</p>
 <p><img src="./img/contacts_api_1.png" alt="Get contact details"></p>
