@@ -197,11 +197,11 @@ npm install --save lodash</code></pre>
 <li>Update index.js to import and use <strong>body-parser</strong>.</li>
 </ul>
 <blockquote>
-<pre><code class="lang-javascript">import body-parser from &#39;body-parser&#39;;
+<pre><code class="lang-javascript">import bodyParser from &#39;body-parser&#39;;
 ....
 //configure body-parser
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 ....</code></pre>
 </blockquote>
 <ul>
