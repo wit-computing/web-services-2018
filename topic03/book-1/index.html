@@ -236,45 +236,45 @@ export default router;</code></pre>
 <p><img src="./img/contacts_post.png" alt="Contacts post"></p>
 <h2>Update a Contact</h2>
 <ul>
-<li>Updating a contact involves replacing a contact with the new data in the HTTP request body. This corresponds to a PUT. Add the following routing code to the end of <strong>/api/contacts/index.js</strong>.</li>
+<li>Updating a contact involves replacing a contact with the new data in the HTTP request body. This corresponds to a HTTP PUT. We will use the phone number as the key to identify contacts. Add the following routing code to the end of <strong>/api/contacts/index.js</strong>.</li>
 </ul>
-<pre><code class="lang-javascript">//Update a contact
+<pre><code class="lang-javascript">// Update a contact
 router.put(&#39;/:id&#39;, (req, res) =&gt; {
-     let key = req.params.id;
-     let updateContact = req.body;
-     var index = _.findIndex(contacts, contact =&gt; {
-                 return contact.phone_number === key;
-              });
+     const key = req.params.id;
+     const updateContact = req.body;
+     const index = contacts.map((contact)=&gt;{
+return contact.phone_number;
+}).indexOf(key);
             if (index !== -1) {
-               contacts.splice(index, 1, {name: updateContact.name, address: updateContact.address, phone_number: updateContact.phone_number});
-               res.status(200).send({message: &quot;Contact Updated&quot;});
-              }
-              else{
-          res.status(400).send({message: &quot;Unable to find Contact in request. No Contact Found in body&quot;}) ;
+               contacts.splice(index, 1, {name: updateContact.name, address: updateContact.address,
+               phone_number: updateContact.phone_number});
+               res.status(200).send({message: &#39;Contact Updated&#39;});
+              } else {
+          res.status(400).send({message: &#39;Unable to find Contact in request. No Contact Found in body&#39;});
       }
 });</code></pre>
 <p>Test using a Rest client by doing a <strong>HTTP PUT</strong> using
 the  URL of an existing contact as follows.</p>
-<p> <a href="http://localhost:8080/api/contacts/1">http://localhost:8080/api/contacts/1</a></p>
+<blockquote>
+<p><a href="http://localhost:8080/api/contacts/934-4329">http://localhost:8080/api/contacts/934-4329</a></p>
+</blockquote>
 <p> You will need to include a JSON document in the HTTP body to replace it.  </p>
 <h2>Delete a Contact</h2>
 <ul>
 <li>Include the following function and test that the function removes a contact.(e.g. perform a HTTP DELETE on <a href="http://localhost:8080/api/contacts/1">http://localhost:8080/api/contacts/1</a>)</li>
 </ul>
-<pre><code class="lang-javascript">//Delete a contact
+<pre><code class="lang-javascript">// Delete a contact
 router.delete(&#39;/:id&#39;, (req, res) =&gt; {
-     let key = req.params.id;
-   var elements = _.remove(contacts,
-              contact =&gt; {
-                     return contact.phone_number === key;
-                  });
-    if (elements){
-       res.status(200).send({message: &quot;Contact deleted&quot;});
-    }else{
-      res.status(400).send({message: &quot;Unable to find Contact. No contact Deleted&quot;}) ;
+     const key = req.params.id;
+     const index = contacts.map((contact)=&gt;{
+return contact.phone_number;
+}).indexOf(key);
+    if (index &gt; -1) {
+contacts.splice(index, 1);
+        res.status(200).send({message: `Deleted contact with phone_number: ${key}.`});
+    } else {
+      res.status(400).send({message: `Unable to find contact with phone_number: ${key}.`});
       }
-
-
 });</code></pre>
 <h2>Commit it</h2>
 <p>Commit the changes you just made to your repo.</p>
@@ -289,135 +289,141 @@ git commit -m &quot;added routing for add,update,delete contact&quot;</code></pr
 <h3>API Design</h3>
 <p><img src="./img/hacker_api.png" alt="Hacker News API"></p>
 <h1>Set up</h1>
-<p>Create the following file structure</p>
-<pre><code class="lang-script">+api
-  +posts</code></pre>
 <ul>
-<li>Create two new javascript files, stubAPI and index.js, in the news folder:</li>
+<li>Create the following file structure for the posts and news scripts.</li>
+</ul>
+<pre><code class="lang-script">+api
+  +posts
+  +news
+     |- stubAPI.js
+     |- index.js</code></pre>
+<ul>
+<li>In <em>/api/news</em>, create two new javascript files, <em>stubAPI.js</em> and <em>index.js</em>.:</li>
 </ul>
 <pre><code class="lang-script">+api
    +news
       |- stubAPI.js
       |- index.js</code></pre>
-<h2>StubAPI</h2>
+<h2>StubAPI.js</h2>
 <ul>
-<li>The stubAPI will take the place of the Mongo database for the time being. In <strong>stubAPI.js</strong>, enter the following code:</li>
+<li>The <em>stubAPI.js</em> will take the place of the Mongo database for the time being. In <em>stubAPI.js</em>, enter the following code:</li>
 </ul>
 <pre><code class="lang-javascript">import _ from &#39;lodash&#39;;
 
-  const  posts = [
-         {  id: 1 ,
-            title : &#39;India - Tiger population sees 30% increase.&#39;,
-            link : &#39;http://www.bbc.com/news/world-asia-30896028&#39;,
-            username : &#39;jbloggs&#39;,
-            comments : [],
-            upvotes : 10
+  const posts = [
+         {id: 1,
+            title: &#39;India - Tiger population sees 30% increase.&#39;,
+            link: &#39;http://www.bbc.com/news/world-asia-30896028&#39;,
+            username: &#39;jbloggs&#39;,
+            comments: [],
+            upvotes: 10,
           },
          {
             id: 2,
-            title : &#39;The button that is not.&#39;,
-            link : &#39;http://blog.nuclearsecrecy.com/2014/12/15/button-isnt/&#39;,
-            username : &#39;notme&#39;,
-            comments : [],
-            upvotes : 12
+            title: &#39;The button that is not.&#39;,
+            link: &#39;http://blog.nuclearsecrecy.com/2014/12/15/button-isnt/&#39;,
+            username: &#39;notme&#39;,
+            comments: [],
+            upvotes: 12,
           },
           {
             id: 3,
-            title : &#39;Google Nears $1B Investment in SpaceX&#39;,
-            link : null,
-            username : &#39;notme&#39;,
-            comments : [],
-            upvotes : 12
+            title: &#39;Google Nears $1B Investment in SpaceX&#39;,
+            link: null,
+            username: &#39;notme&#39;,
+            comments: [],
+            upvotes: 12,
           },
           {
             id: 4,
-            title : &#39;Coinbase Raises $75M from DFJ Growth, USAA, and More&#39;,
-            link : &#39;http://blog.coinbase.com/post/108642362357/coinbase-raises-75m-from-dfj-growth-usaa-nyse&#39;,
-            username : &#39;psmith&#39;,  
-            comments : [],
-            upvotes : 2
-          }
-      ] ;
+            title: &#39;Coinbase Raises $75M from DFJ Growth, USAA, and More&#39;,
+            link: &#39;http://blog.coinbase.com/post/108642362357/coinbase-raises-75m-from-dfj-growth-usaa-nyse&#39;,
+            username: &#39;psmith&#39;,
+            comments: [],
+            upvotes: 2,
+          },
+      ];
 
 
      const stubAPI = {
-         getAll : () =&gt; {
-            return posts ;
+         getAll: () =&gt; {
+            return posts;
           },
-         add : (t,l) =&gt; {
-              let id = 1 ;
-              const last = _.last(posts) ;
+         add: (t, l) =&gt; {
+              if (!(t &amp;&amp; l)) return false;
+              let id = 1;
+              const last = _.last(posts);
               if (last) {
-                 id = last.id + 1 ;
+                 id = last.id + 1;
               }
-              let len = posts.length ;
-              let newL_len = posts.push({
-                  &#39;id&#39;: id,  
-                 title: t, link : l, username: &#39;&#39;, comments: [], upvotes: 0 }) ;
-               return newL_len &gt; len?id:-1;
+              let len = posts.length;
+              let newLen = posts.push({
+                  &#39;id&#39;: id,
+                 &#39;title&#39;: t, &#39;link&#39;: l, &#39;username&#39;: &#39;&#39;, &#39;comments&#39;: [], &#39;upvotes&#39;: 0});
+               return newLen &gt; len?id:-1;
               },
-         upvote : (id) =&gt; {
+         upvote: (id) =&gt; {
              const index = _.findIndex(posts,
-                   function(post) {
+                   (post) =&gt; {
                     return post.id == id;
-                  } );   
-             if (index !== -1) {                 
-                  posts[index].upvotes += 1 ;
-                  return true ;
+                  } );
+             if (index !== -1) {
+                  posts[index].upvotes += 1;
+                  return true;
                 }
-              return false ;
+              return false;
            },
-         getPost : (id) =&gt; {
-            let result = null ;
+         getPost: (id) =&gt; {
+            let result = null;
             const index = _.findIndex(posts,
-                   function(post) {
+                   (post) =&gt; {
                     return post.id == id;
-                  } );     
-             if (index !== -1) {                
+                  } );
+             if (index !== -1) {
                 result = posts[index];
                     }
-            return result;            
+            return result;
             },
-         addComment :(postId,c,n) =&gt; {
+         addComment: (postId, c, n) =&gt; {
             let result = false;
             const post = stubAPI.getPost(postId);
-            let id = 1 ;
-            if (post){
-            const last = _.last(post.comments) ;
+            let id = 1;
+            if (post) {
+            const last = _.last(post.comments);
             if (last) {
-               id = last.id + 1 ;
+               id = last.id + 1;
             }
-            post.comments.push({ &#39;id&#39;: id,  
-                     comment: c , author: n, upvotes: 0 } ) ;
+            post.comments.push({&#39;id&#39;: id,
+                     &#39;comment&#39;: c, &#39;author&#39;: n, &#39;upvotes&#39;: 0} );
             result = true;
             }
           return result;
             },
-         upvoteComment : (postId,commentId) =&gt; {
+         upvoteComment: (postId, commentId) =&gt; {
             let result = false;
-            const post = stubAPI.getPost(postId) ;
-            if (post){
-            const index = _.findIndex(post.comments, function(c) {
+            const post = stubAPI.getPost(postId);
+            if (post) {
+            const index = _.findIndex(post.comments, (c) =&gt; {
                       return c.id == commentId;
-                    });  
-             if (index !== -1) {                 
-                 post.comments[index].upvotes += 1 ;
-                 result = true
+                    });
+             if (index !== -1) {
+                 post.comments[index].upvotes += 1;
+                 result = true;
                 }
               }
             return result;
-          }
-      }
-    export default stubAPI ;</code></pre>
+          },
+      };
+    export default stubAPI;</code></pre>
 <h1>Routing</h1>
 <ul>
 <li>We will use the same service to handle hacker news as well as contacts. We will need to add the  a new route in server.js for Hacker News. Add the following statements to the top of server.js to import and use the hacker news routes.</li>
 </ul>
-<pre><code class="lang-script">import postsRouter from &#39;./api/posts&#39;;
+<pre><code class="lang-javascript">import postsRouter from &#39;./api/posts&#39;;
 
 ......
 
-server.use(&#39;/api/posts&#39;, postsRouter);</code></pre>
+app.use(&#39;/api/posts&#39;, postsRouter);</code></pre>
 <h1>Get and Post</h1>
 <p>Getting and posting posts is very similar to the Contacts API. Add the following to <strong>api/posts/index.js</strong>:</p>
 <pre><code class="lang-javascript">import express from &#39;express&#39;;
@@ -425,40 +431,35 @@ import stubAPI from &#39;./stubAPI&#39;;
 
 const router = express.Router();
 
-//get all posts
+// get all posts
 router.get(&#39;/&#39;, (req, res) =&gt; {
   const posts = stubAPI.getAll();
-  res.send({ posts: posts });
+  res.send({posts: posts});
 });
 
 
-
-//Add a post
+// Add a post
 router.post(&#39;/&#39;, (req, res) =&gt; {
-        const newPost = req.body;
-    let result = null;
-        if (newPost){
-         result = stubAPI.add(newPost.title, newPost.link);
-    }    
-    if (result){
-       return    res.status(201).send({message: &quot;Posts Created&quot;});
-      }
-          return   res.status(400).send({message: &quot;Unable to find Post in request. No Post Found in body&quot;});
+    const newPost = req.body;
 
+    if (newPost &amp;&amp; stubAPI.add(newPost.title, newPost.link)) {
+         return res.status(201).send({message: &#39;Posts Created&#39;});
+    }
+    return res.status(400).send({message: &#39;Unable to find Post in request.&#39;});
 });
 
-//get a post
+// get a post
 router.get(&#39;/:id&#39;, (req, res) =&gt; {
     const id = req.params.id;
     const post = stubAPI.getPost(id);
 
-       if(post){
-               return   res.status(200).send(post);
+       if (post) {
+               return res.status(200).send(post);
               }
-              return    res.status(404).send({message: `Unable to find Post ${id}`});
+              return res.status(404).send({message: `Unable to find Post ${id}`});
+});
 
-
-});</code></pre>
+export default router;</code></pre>
 <ul>
 <li>Save and test using your Rest client. Make sure any changes using POST are visible using GET on <a href="http://locahost:8080/api/posts">http://locahost:8080/api/posts</a></li>
 </ul>
@@ -466,15 +467,13 @@ router.get(&#39;/:id&#39;, (req, res) =&gt; {
 <ul>
 <li>Add the following route to allow for post upvotes:</li>
 </ul>
-<pre><code class="lang-javascript">//upvote a post
+<pre><code class="lang-javascript">// upvote a post
 router.post(&#39;/:id/upvote&#39;, (req, res) =&gt; {
      const id = req.params.id;
-     const result = stubAPI.upvote(id);
-            if (result) {
-                 return  res.status(200).send({message: `Post ${id} Upvoted`});
+            if (stubAPI.upvote(id)) {
+                 return res.status(200).send({message: `Post ${id} Upvoted`});
             }
-            return    res.status(404).send({message: `Unable to find Post ${id}`});
-
+            return res.status(404).send({message: `Unable to find Post ${id}`});
 });</code></pre>
 <p>The function upvotes the corresponding post on a post request to a resource matching the pattern <code>/:id/upvote</code>
 Test using your Rest client, making sure upvotes are recorded correctly.</p>
