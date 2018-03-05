@@ -224,19 +224,25 @@ mongod</code></p>
       <div  class="ui tab segment lab" data-tab="02">
         <h1>Create a Mongoose Schema for Contacts</h1>
 <p>With Mongoose we declare the object structure (or schema) for each collection in the database - this app has only one. In your node-lab3 folder, create the file <em>api/contact/contactModel.js</em> and add the following code:</p>
-<pre><code class="lang-javascript">const mongoose = require(&#39;mongoose&#39;),
-Schema = mongoose.Schema;
+<pre><code class="lang-javascript">import mongoose from &#39;mongoose&#39;;
+const Schema = mongoose.Schema;
 
 const ContactSchema = new Schema({
   name: String,
   address: String,
-  age: { type: Number, min: 0, max: 120 },
+  age: {
+    type: Number,
+    min: 0,
+    max: 120,
+  },
   email: String,
-  updated: { type: Date, default: Date.now }
+  updated: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-
-export default mongoose.model(&#39;contacts&#39;, ContactSchema);</code></pre>
+export default mongoose.model(&#39;Contact&#39;, ContactSchema);</code></pre>
 <p>Schema is a constructor function provided by Mongoose for creating schema instances (ContactSchema). The last line of code above associates the schema instance with a database collection named contacts (MongoDB creates unknown collections automatically, if necessary). The model() method returns a model object, which has special methods for querying and manipulating the associated collection, e.g. find(), findById(), create() etc.</p>
 
       </div>
@@ -244,71 +250,61 @@ export default mongoose.model(&#39;contacts&#39;, ContactSchema);</code></pre>
       <div  class="ui tab segment lab" data-tab="03">
         <h1>Add configuration parameters</h1>
 <p>You will need to configure Mongoose to connect to your Mongodb database. It is generally a bad idea to have configuration parameters such as user-names, passwords, and instance specific parameters &quot;hard coded&quot; into your javascript programs.</p>
-<p>In your <code>config</code> file, include the mongoDbURI in the default export. Also, we will include a <code>seedDb</code> property to indicate if we wish to seed the database with data. This would only be used in development/testing environments.</p>
-<pre><code class="lang-javascript">...
-export default {
-  mongoDb: &#39;mongodb://localhost:27017/test&#39;,
-  seedDb: true,
-  port: env.PORT || 8080,
-  host: env.HOST || &#39;localhost&#39;,
-  get serverUrl(){
-    return `http://${this.host}:${this.port}`;
-  }
-  ....</code></pre>
+<p>Add the following mongoDb URI to the ebd of your <code>.env</code> file in the root folder of the express app.</p>
+<pre><code class="lang-bash">mongoDB=mongodb://&lt;dbuser&gt;:&lt;dbpassword&gt;@ds122334455.mlab.com:39311/contacts_db
+seedDb=true</code></pre>
 <h2>Load Contact Data to MongoDB</h2>
+<p>Also, we will include a <code>seedDb</code> property to indicate if we wish to seed the database with data. This would only be used in development/testing environments.</p>
 <ul>
 <li>Create a new script called <code>contactsData.js</code> in the root folder <code>node-lab3</code> and enter the following script:</li>
 </ul>
-<pre><code class="lang-javascript">import mongoose from &#39;mongoose&#39;;
-import assert from &#39;assert&#39;;
-import contactModel from &#39;./api/contacts/contactModel&#39;;
-import config from &#39;./config&#39;;
+<pre><code class="lang-javascript">import contactModel from &#39;./api/contacts/contactModel&#39;;
 
 const contacts = [
   {
-    &quot;name&quot;: &quot;Contact 1&quot;,
-    &quot;address&quot;: &quot;123 Test St&quot;,
-    &quot;phone_number&quot;: &quot;132-3212&quot;
+    &#39;name&#39;: &#39;Contact 1&#39;,
+    &#39;address&#39;: &#39;123 Test St&#39;,
+    &#39;phone_number&#39;: &#39;132-3212&#39;,
   },
   {
-    &quot;name&quot;: &quot;Contact 2&quot;,
-    &quot;address&quot;: &quot;23 Main St&quot;,
-    &quot;phone_number&quot;: &quot;934-4329&quot;
+    &#39;name&#39;: &#39;Contact 2&#39;,
+    &#39;address&#39;: &#39;23 Main St&#39;,
+    &#39;phone_number&#39;: &#39;934-4329&#39;,
   },
   {
-    &quot;name&quot;: &quot;Contact 3&quot;,
-    &quot;address&quot;: &quot;4 Lower St&quot;,
-    &quot;phone_number&quot;: &quot;432-5832&quot;
+    &#39;name&#39;: &#39;Contact 3&#39;,
+    &#39;address&#39;: &#39;4 Lower St&#39;,
+    &#39;phone_number&#39;: &#39;432-5832&#39;,
   },
   {
-    &quot;name&quot;: &quot;Contact 4&quot;,
-    &quot;address&quot;: &quot;49 Upper Street&quot;,
-    &quot;phone_number&quot;: &quot;934-4290&quot;
-  }
+    &#39;name&#39;: &#39;Contact 4&#39;,
+    &#39;address&#39;: &#39;49 Upper Street&#39;,
+    &#39;phone_number&#39;: &#39;934-4290&#39;,
+  },
 ];
 
-export const loadContacts = () =&gt;{contactModel.find({}).remove(function() {
-    contactModel.collection.insert(contacts, (err,docs)=&gt;{
-    if (err){
-      console.log(`failed to Load Contact Data`);
-    }
-    else{
+export const loadContacts = () =&gt; {
+  contactModel.find({}).remove(() =&gt; {
+    contactModel.collection.insert(contacts, (err, docs)=&gt;{
+    if (err) {
+      console.log(`failed to Load Contact Data: ${err}`);
+    } else {
       console.info(`${contacts.length} contacts were successfully stored.`);
     }
-  })
+  });
 });
-}</code></pre>
+};</code></pre>
 <p>this will initialise the database with the contacts data we used in the previous labs.
-+ Update <code>server.js</code> in the node-lab3 folder to reference to import mongoose and contactsData and load the database if the seedDb property is set to true:</p>
++ Update <code>index.js</code> in the node-lab3 folder to reference to import mongoose and contactsData and load the database if the seedDb property is set to true:</p>
 <pre><code class="lang-javascript">import mongoose from &#39;mongoose&#39;;
 import {loadContacts} from &#39;./contactsData&#39;;
 
 ....
 // Connect to database
-mongoose.connect(config.mongoDb);
+mongoose.connect(process.env.mongoDB);
 // Populate DB with sample data
-if(config.seedDb) {
-    loadContacts();
+if (process.env.seedDb) {
+  loadContacts();
 }
 ....</code></pre>
 <p>Check, using the Mongo Shell, that the data has been entered when the server restarts.</p>
@@ -321,69 +317,58 @@ if(config.seedDb) {
 First, replace  <code>/api/contacts/index.js</code>  with the following code</p>
 <pre><code class="lang-javascript">
 import express from &#39;express&#39;;
-import _ from &#39;lodash&#39;;
-import mongoose from &#39;mongoose&#39;;
-import Contact from &#39;./contactSchema&#39;;
-import config from &#39;./../../config&#39;;
+import Contact from &#39;./contactModel&#39;;
 
-
-// Connect to database
-mongoose.connect(config.mongoDb);
-
-const router = express.Router();
+const router = express.Router(); // eslint-disable-line
 
 router.get(&#39;/&#39;, (req, res) =&gt; {
- Contact.find((err, contacts) =&gt; {
-    if(err) { return handleError(res, err); }
-    return res.send(contacts);
+  Contact.find((err, contacts) =&gt; {
+    if (err) return handleError(res, err);
+    return res.json(200, contacts);
   });
 });
 
-//Add a contact
 router.post(&#39;/&#39;, (req, res) =&gt; {
-        let newContact = req.body;
-        if (newContact){
-           Contact.create(newContact, (err, contact) =&gt; {
-              if(err) { return handleError(res, err); }
-                 return res.status(201).send({contact});
-          });
-      }else{
-           return handleError(res, err);
-      }
+  Contact.create(req.body, function(err, contact) {
+    if (err) return handleError(res, err);
+    return res.json(201, contact);
+  });
 });
 
-//Update a contact
+// Update a contact
 router.put(&#39;/:id&#39;, (req, res) =&gt; {
-     let key = req.params.id;
-     let updateContact = req.body;
-
-   if(updateContact._id) { delete updateContact._id; }
-   Contact.findById(req.params.id,  (err, contact) =&gt; {
-      if (err) { return handleError(res, err); }
-        if(!contact) { return res.send(404); }
-            const updated = _.merge(contact, updateContact);
-            updated.save((err) =&gt; {
-                  if (err) { return handleError(res, err); }
-                          return res.send(contact);
-            });
-      });
-});
-
-//Delete a contact
-router.delete(&#39;/:id&#39;, (req, res) =&gt; {
-     let key = req.params.id;
-   Contact.findById(key, (err, contact)=&gt; {
-    if(err) { return res.status(400).send(err);}
-    if(!contact) { return res.send(404); }
-    contact.remove(err =&gt; {
-      if(err) { return handleError(res, err); }
-      return res.send(contact);
+  if (req.body._id) delete req.body._id;
+  Contact.findById(req.params.id, (err, contact) =&gt; {
+    if (err) return handleError(res, err);
+    if (!contact) return res.send(404);
+    const updated = _.merge(contact, req.body);
+    updated.save((err) =&gt; {
+      if (err) return handleError(res, err);
+      return res.json(200, contact);
     });
-  });      
+  });
 });
 
+// Delete a contact
+router.delete(&#39;/:id&#39;, (req, res) =&gt; {
+  Contact.findById(req.params.id, (err, contact) =&gt; {
+    if (err) return handleError(res, err);
+    if (!contact) return res.send(404);
+    contact.remove(function(err) {
+      if (err) return handleError(res, err);
+      return res.send(204);
+    });
+  });
+});
+
+/**
+ * Handle general errors.
+ * @param {object} res The response object
+ * @param {object} err The error object.
+ * @return {object} The response object
+ */
 function handleError(res, err) {
-  return res.status(500).send(err);
+  return res.send(500, err);
 };
 
 export default router;</code></pre>
@@ -429,7 +414,7 @@ export default router;</code></pre>
       <div  class="ui tab segment lab" data-tab="06">
         <h1>Hacker News API</h1>
 <ul>
-<li>Create a new file, <code>newsModel.js</code>, in the <em>/api/news/</em> folder and add the following content:</li>
+<li>Create a new file, <code>postsModel.js</code>, in the <em>/api/posts/</em> folder and add the following content:</li>
 </ul>
 <pre><code class="lang-javascript">const mongoose = require(&#39;mongoose&#39;),
 Schema = mongoose.Schema;
@@ -452,62 +437,57 @@ export default mongoose.model(&#39;posts&#39;, PostSchema);</code></pre>
 + We want to be able to seed the database with test data during development. Create a new file called <em>newsData.js</em> in the root <em>node-lab3</em> folder.</p>
 <pre><code class="lang-javascript">import postModel from &#39;./api/news/newsModel&#39;;
 
-const  posts = [
-         {  id: 1 ,
-            title : &#39;India - Tiger population sees 30% increase.&#39;,
-            link : &#39;http://www.bbc.com/news/world-asia-30896028&#39;,
-            username : &#39;jbloggs&#39;,
-            comments : [],
-            upvotes : 10
+const posts = [
+         {id: 1,
+           title: &#39;India - Tiger population sees 30% increase.&#39;,
+           link: &#39;http://www.bbc.com/news/world-asia-30896028&#39;,
+           username: &#39;jbloggs&#39;,
+            comments: [],
+            upvotes: 10,
           },
          {
             id: 2,
-            title : &#39;The button that is not.&#39;,
-            link : &#39;http://blog.nuclearsecrecy.com/2014/12/15/button-isnt/&#39;,
-            username : &#39;notme&#39;,
-            comments : [],
-            upvotes : 12
+            title: &#39;The button that is not.&#39;,
+            link: &#39;http://blog.nuclearsecrecy.com/2014/12/15/button-isnt/&#39;,
+            username: &#39;notme&#39;,
+            comments: [],
+            upvotes: 12,
           },
           {
             id: 3,
-            title : &#39;Google Nears $1B Investment in SpaceX&#39;,
-            link : null,
-            username : &#39;notme&#39;,
-            comments : [],
-            upvotes : 12
+            title: &#39;Google Nears $1B Investment in SpaceX&#39;,
+            link: null,
+            username: &#39;notme&#39;,
+            comments: [],
+            upvotes: 12,
           },
           {
             id: 4,
-            title : &#39;Coinbase Raises $75M from DFJ Growth, USAA, and More&#39;,
-            link : &#39;http://blog.coinbase.com/post/108642362357/coinbase-raises-75m-from-dfj-growth-usaa-nyse&#39;,
-            username : &#39;psmith&#39;,  
-            comments : [],
-            upvotes : 2
-          }
-      ] ;
+            title: &#39;Coinbase Raises $75M from DFJ Growth, USAA, and More&#39;,
+            link: &#39;http://blog.coinbase.com/post/108642362357/coinbase-raises-75m-from-dfj-growth-usaa-nyse&#39;,
+            username: &#39;psmith&#39;,
+            comments: [],
+            upvotes: 2,
+          },
+      ];
 
 postModel.find({}).remove(function() {
-    postModel.collection.insert(posts, (err,docs)=&gt;{
-    if (err){
+    postModel.collection.insert(posts, (err, docs)=&gt;{
+    if (err) {
       console.log(`failed to Load Post Data`);
-    }
-    else{
+    } else {
       console.info(`${posts.length} posts were successfully stored.`);
     }
-  })
+  });
 });</code></pre>
 <ul>
-<li>Open <code>server.js</code> and include the script.</li>
+<li>Open <code>index.js</code> and include the script.</li>
 </ul>
 <pre><code class="lang-javascript">...
-import {loadContacts} from &#39;./contactsData&#39;;
 import {loadPosts} from &#39;./newsData&#39;;
 
-const server = express();
+...
 
-// Connect to database
-mongoose.connect(config.mongoDb);
-// Populate DB with sample data
 if(config.seedDb) {
     loadContacts();
     loadPosts();
@@ -519,94 +499,90 @@ if(config.seedDb) {
      
       <div  class="ui tab segment lab" data-tab="07">
         <h1>Update HackerNews API</h1>
-<p>The routing script for the news API needs to by updated to include the Mongoose <code>newsModel</code>.</p>
+<p>The routing script for the news API needs to by updated to include the Mongoose <code>postsModel</code>.</p>
 <ul>
-<li>Replace the code in <code>/api/news/indexjs</code> with the following:</li>
+<li>Replace the code in <code>/api/posts/indexjs</code> with the following:</li>
 </ul>
 <pre><code class="lang-javascript">import express from &#39;express&#39;;
-import _ from &#39;lodash&#39;;
-import mongoose from &#39;mongoose&#39;;
-import Post from &#39;./newsModel&#39;;
-import config from &#39;./../../config&#39;;
+import Post from &#39;./postsModel&#39;;
 
-const router = express.Router();
+const router = express.Router();// eslint-disable-line
 
 router.get(&#39;/&#39;, (req, res) =&gt; {
   Post.find((err, posts) =&gt; {
-    if(err) { return handleError(res, err); }
+    if (err) return handleError(res, err);
     return res.send(posts);
   });
 });
 
-//Add a post
+// Add a post
 router.post(&#39;/&#39;, (req, res) =&gt; {
-
      const newPost = req.body;
-    if (newPost){
+    if (newPost) {
            Post.create(newPost, (err, post) =&gt; {
-              if(err) { return handleError(res, err); }
+              if (err) return handleError(res, err);
                  return res.status(201).send({post});
           });
-      }else{
+      } else {
          return handleError(res, err);
       }
-
 });
 
-//upvote a post
+// upvote a post
 router.post(&#39;/:id/upvotes&#39;, (req, res) =&gt; {
-     const id = req.params.id;
-   Post.findById(id, function (err, post) {
-        if(err) { return handleError(res, err); }
+  const id = req.params.id;
+  Post.findById(id, (err, post) =&gt; {
+        if (err) return handleError(res, err);
         post.upvotes++;
-       post.save(err =&gt; {
-          if (err) {return handleError(res, err);}
+       post.save((err) =&gt; {
+          if (err) return handleError(res, err);
            return res.status(201).send({post});
         });
   } );
-
-
 });
 
-//get post
+// get post
 router.get(&#39;/:id&#39;, (req, res) =&gt; {
     const id = req.params.id;
-   Post.findById(id, function (err, post) {
-        if(err) { return handleError(res, err); }
+    Post.findById(id, (err, post) =&gt; {
+        if (err) return handleError(res, err);
         return res.send({post});
   } );
-
 });
 
-//add comment
+// add comment
 router.post(&#39;/:id/comments&#39;, (req, res) =&gt; {
    const id = req.params.id;
    const comment = req.body;
    Post.findById(id, (err, post)=&gt;{
-        if(err) { return handleError(res, err); }
+     if (err) return handleError(res, err);
         post.comments.push(comment);
-        post.save(err =&gt; {
-          if (err) {return handleError(res, err);}
+        post.save((err) =&gt; {
+          if (err) return handleError(res, err);
            return res.status(201).send({post});
         });
   });
-
-
 });
 
 router.post(&#39;/:postId/comments/:commentId/upvotes&#39;, (req, res) =&gt; {
    const commentId = req.params.commentId;
    const postId = req.params.postId;
    Post.findById( postId, (err, post)=&gt;{
-        if(err) { return handleError(res, err); }
+        if (err) return handleError(res, err);
            post.comments.id(commentId).upvotes++;
-           post.save(err =&gt; {
-           if (err) {return handleError(res, err);}
+           post.save((err) =&gt; {
+           if (err) return handleError(res, err);
                 return res.status(201).send({post});
            });
   });
 });
 
+/**
+ * Handle general errors.
+ * @param {object} res The response object
+ * @param {object} err The error object.
+ * @return {object} The response object
+ */
 function handleError(res, err) {
   return res.status(500).send(err);
 };
