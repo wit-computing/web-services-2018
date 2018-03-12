@@ -1,474 +1,794 @@
  <!DOCTYPE html>
  <html>
    <head>
-
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-
-     
-
-     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.css" type="text/css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/solarized-light.min.css" rel="stylesheet" />
-
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/languages/java.min.js"></script>
+     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.39/css/uikit.min.css" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/.min.css" />
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.39/js/uikit.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.39/js/uikit-icons.min.js"></script>
+     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
      <script>hljs.initHighlightingOnLoad();</script>
-
-     
-
-     <style>
-       
-
-body 
-{
-  font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
-}
-
-figcaption
-{
-  margin-bottom: 20px;
-}
-
-.vertical-align
-{
-  display: flex;
-  align-items: center;
-}
-
-
-
-     </style>
-
    </head>
-
-  <body>
+  <body class="uk-background-muted">
     
-
-
   
-
-
-
-
-
-<header class="ui middle aligned center aligned stackable grid segment">
-
-  <a class="ui blue left corner label">
-  <div id="showTOC" class="popup" data-content="Reveal TOC">
-    <i id="toc" class="sitemap big  icon"></i>
-  </div>
-</a>
-
-  <div class="seven wide center aligned column">
-    <h2 class="headder"> Web Services Development</h2>
-    <p> All Slides in the Course </p>
-  </div>
-
   
-
-
-
-<div class="two wide column sitemap">
-  <div class="popup" data-content="To the top level Topics for this Module...">
-    <a href="index.html"> <i class="huge home icon"></i> Module </a>
-  </div>
-</div>
-
-  
-<div class="four wide column">
-  <div class="ui center aligned mini message segment">
-    Frank Walsh (fxwalsh@wit.ie).
-    <a  href="http://creativecommons.org/licenses/by-nc/4.0/" title="External link to http://creativecommons.org/licenses/by-nc/4.0/"
-        target="_blank">Creative Commons License
-    </a>
-  </div>
-</div>
-
-  
-<div class="ui two wide right aligned column">
-  <div class="ui left aligned middle aligned very basic grid">
-    <div class="row">
-      <div class="popup" data-content="All Slides in Course">
-        <a href="talkwall.html"> <i class="large film icon"></i> All Slides </a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="popup" data-content="All Labs in Course">
-        <a href="labwall.html"> <i class="large lab icon"></i> All Labs </a>
-      </div>
+  <div class="uk-background-muted uk-flex uk-flex-center uk-flex-middle uk-text-center uk-padding-small" uk-grid>
+    
+  <div class="uk-width-1-2@m  uk-card uk-card-default uk-padding-small">
+    <h2> Web Services Development  </h2>
+    <div class="uk-text-muted uk-text-small">
+      
+        All slides's in Module
+      
     </div>
   </div>
-</div>
 
+    
+  <div class="uk-padding">
+    
+      
+  <li>
+    <a href="index.html"
+       title="To the top level Topics for this Module" pos="bottom" uk-tooltip>
+      <i class="fas fa-home fa-4x"></i>
+    </a>
+  </li>
 
-</header>
-
-
-
-<div class="ui bottom attached segment pushable">
-  <div class="ui inverted labeled icon left inline vertical sidebar menu">
-    
-    <a class="item" href="topic01/talk-1/web-services-intro.pdf">
-      Web Services
-    </a>
-    
-    <a class="item" href="topic01/talk-2/javascript-intro.pdf">
-       JavaScript
-    </a>
-    
-    <a class="item" href="topic01/talk-3/ES2015.pdf">
-       ECMA2015
-    </a>
-    
-    <a class="item" href="topic02/talk-1/git.pdf">
-      Git Overview
-    </a>
-    
-    <a class="item" href="topic02/talk-2/node.pdf">
-      Node
-    </a>
-    
-    <a class="item" href="topic03/talk-1/APIs.pdf">
-      APIs
-    </a>
-    
-    <a class="item" href="topic03/talk-2/APIValue.pdf">
-       API Value
-    </a>
-    
-    <a class="item" href="topic04/talk1/mongoDB.pdf">
-       MongoDB and Mongoose
-    </a>
-    
-    <a class="item" href="topic05/talk-0/messaging.pdf">
-      # Indirect Messaging
-    </a>
-    
-    <a class="item" href="topic05/talk-1/microservices.pdf">
-      # Microservices
-    </a>
-    
-    <a class="item" href="topic05/talk-2/microservices.pdf">
-      # Microservices - Further Reading
-    </a>
-    
+      
   </div>
-  <div class="pusher">
-    <div class="ui container">
-      <div class="ui basic segment">
-        <div class="ui four doubling stackable cards">
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header"> Web Services</div>
-  </div>
-    
-    <a href="topic01/talk-1/web-services-intro.pdf" target="_blank">
-    
-      <div class="image">
-        <img class="ui bordered rounded image" src="topic01/talk-1/web-services-intro.png">
-      </div>
-    </a>
-    <div class="content">
-      <div class="description">
-        <p>This topic provides an introduction to Web Services. You will cover web services origins, the definition of a web service, web service examples, and the microservice concept.</p>
 
-      </div>
-    </div>
+    
   
-  
-</div>
 
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header">  JavaScript</div>
-  </div>
     
-    <a href="topic01/talk-2/javascript-intro.pdf" target="_blank">
-    
-      <div class="image">
-        <img class="ui bordered rounded image" src="topic01/talk-2/javascript-intro.png">
-      </div>
-    </a>
-    <div class="content">
-      <div class="description">
-        <p>This talk provides an introduction to Javascipt. You will cover JavaScript origins and primative types, objects,  programming constructs and functions used in Javascript.</p>
-
-      </div>
-    </div>
   
-  
-</div>
-
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header">  ECMA2015</div>
-  </div>
-    
-    <a href="topic01/talk-3/ES2015.pdf" target="_blank">
-    
-      <div class="image">
-        <img class="ui bordered rounded image" src="topic01/talk-3/ES2015.jpg">
-      </div>
-    </a>
-    <div class="content">
-      <div class="description">
-        <p>This talk provides an introduction to a few of the main features of ECMA2015(ES6)</p>
-
-      </div>
-    </div>
-  
-  
-</div>
-
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header"> Git Overview</div>
-  </div>
-    
-    <a href="topic02/talk-1/git.pdf" target="_blank">
-    
-      <div class="image">
-        <img class="ui bordered rounded image" src="topic02/talk-1/git.png">
-      </div>
-    </a>
-    <div class="content">
-      <div class="description">
-        <p>This talk provides a brief git overview - just enought to get through the assignments and labs!</p>
-
-      </div>
-    </div>
-  
-  
-</div>
-
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header"> Node</div>
-  </div>
-    
-    <a href="topic02/talk-2/node.pdf" target="_blank">
-    
-      <div class="image">
-        <img class="ui bordered rounded image" src="topic02/talk-2/node.png">
-      </div>
-    </a>
-    <div class="content">
-      <div class="description">
-        <p>This topic provides an introduction to Node and Express. You will cover Server-side Javascript, event-driven web servers and the Express package.</p>
-
-      </div>
-    </div>
-  
-  
-</div>
-
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header"> APIs</div>
-  </div>
-    
-    <a href="topic03/talk-1/APIs.pdf" target="_blank">
-    
-      <div class="image">
-        <img class="ui bordered rounded image" src="topic03/talk-1/APIs.jpg">
-      </div>
-    </a>
-    <div class="content">
-      <div class="description">
+    <div class="uk-card uk-card-default uk-padding-small">
+      <ul class="uk-iconnav">
         
-      </div>
-    </div>
-  
-  
-</div>
-
           
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header">  API Value</div>
-  </div>
+  
     
-    <a href="topic03/talk-2/APIValue.pdf" target="_blank">
-    
-      <div class="image">
-        <img class="ui bordered rounded image" src="topic03/talk-2/APIValue.jpg">
-      </div>
+      
+      
+  <li>
+    <a href="./talkwall.html"
+       title="All slides's in module" pos="bottom" uk-tooltip>
+      <i class="fas fa-object-group   fa-2x" style="color:#009688""></i>
     </a>
-    <div class="content">
-      <div class="description">
-        <p>This talk discusses the value of Web APIs for current enterprises and companies.</p>
+  </li>
 
-      </div>
-    </div>
-  
-  
-</div>
-
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header">  MongoDB and Mongoose</div>
-  </div>
     
-    <a href="topic04/talk1/mongoDB.pdf" target="_blank">
+  
     
-      <div class="image">
-        <img class="ui bordered rounded image" src="topic04/talk1/mongoDB.png">
-      </div>
+      
+      
+  <li>
+    <a href="./labwall.html"
+       title="All labs's in module" pos="bottom" uk-tooltip>
+      <i class="fas fa-flask          fa-2x" style="color:#00BCD4""></i>
     </a>
-    <div class="content">
-      <div class="description">
-        <p>This topic introduces MongoDB and Mongoose, an object modeling tool designed to work in an asynchronous environment.</p>
+  </li>
 
-      </div>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+        
+        
+      </ul>
     </div>
   
-  
-</div>
 
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header"> # Indirect Messaging</div>
   </div>
+
+  
+  <div class="uk-container uk-padding-small">
     
-    <a href="topic05/talk-0/messaging.pdf" target="_blank">
+      
     
-      <div class="image">
-        <img class="ui bordered rounded image" src="topic05/talk-0/messaging.png">
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    <div class="uk-child-width-1-4@s uk-flex uk-flex-center" uk-grid uk-height-match="target: > div > .uk-card">
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+    
+    <a href=topic01//talk-1/web-services-intro.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3> Web Services </h3>
       </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="topic01/talk-1/web-services-intro.png">
+    
+  </div>
+
+    
+  
     </a>
-    <div class="content">
-      <div class="description">
-        <p>This talk introduces basic external data representations and indirect messaging.</p>
+  
 
-      </div>
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>This topic provides an introduction to Web Services. You will cover web services origins, the definition of a web service, web service examples, and the microservice concept.</p>
+</p>
     </div>
   
-  
-</div>
 
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header"> # Microservices</div>
+    
+  
+
   </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
     
-    <a href="topic05/talk-1/microservices.pdf" target="_blank">
+  
     
-      <div class="image">
-        <img class="ui bordered rounded image" src="topic05/talk-1/microservices.png">
+      
+    
+    <a href=topic01//talk-2/javascript-intro.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3>  JavaScript </h3>
       </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="topic01/talk-2/javascript-intro.png">
+    
+  </div>
+
+    
+  
     </a>
-    <div class="content">
-      <div class="description">
-        <p>This talk introduces the Microservices concept.</p>
+  
 
-      </div>
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>This talk provides an introduction to Javascipt. You will cover JavaScript origins and primative types, objects,  programming constructs and functions used in Javascript.</p>
+</p>
     </div>
   
-  
-</div>
 
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header"> # Microservices - Further Reading</div>
+    
+  
+
   </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
     
-    <a href="topic05/talk-2/microservices.pdf" target="_blank">
+  
     
-      <div class="image">
-        <img class="ui bordered rounded image" src="topic05/talk-2/microservices.jpg">
+      
+    
+    <a href=topic01//talk-3/ES2015.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3>  ECMA2015 </h3>
       </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="topic01/talk-3/ES2015.jpg">
+    
+  </div>
+
+    
+  
     </a>
-    <div class="content">
-      <div class="description">
-        <p>Chapter 1 from [Builing Microservices](<a href="https://www.nginx.com/wp-">https://www.nginx.com/wp-</a></p>
+  
 
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>This talk provides an introduction to a few of the main features of ECMA2015(ES6)</p>
+</p>
+    </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+    
+    <a href=topic02//talk-1/git.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3> Git Overview </h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
       </div>
     </div>
-  
-  
-</div>
+  </div>
 
-          
-        </div>
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="topic02/talk-1/git.png">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>This talk provides a brief git overview - just enought to get through the assignments and labs!</p>
+</p>
     </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+    
+    <a href=topic02//talk-2/node.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3> Node </h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
+      </div>
     </div>
   </div>
-</div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="topic02/talk-2/node.png">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>This topic provides an introduction to Node and Express. You will cover Server-side Javascript, event-driven web servers and the Express package.</p>
+</p>
+    </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+    
+    <a href=topic03//talk-1/APIs.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3> APIs</h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="topic03/talk-1/APIs.jpg">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+    
+    <a href=topic03//talk-2/APIValue.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3>  API Value </h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="topic03/talk-2/APIValue.jpg">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>This talk discusses the value of Web APIs for current enterprises and companies.</p>
+</p>
+    </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+    
+    <a href=topic04//talk1/mongoDB.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3>  MongoDB and Mongoose </h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="topic04/talk1/mongoDB.png">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>This topic introduces MongoDB and Mongoose, an object modeling tool designed to work in an asynchronous environment.</p>
+</p>
+    </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+    
+    <a href=topic05//talk-0/messaging.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3> # Indirect Messaging </h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="topic05/talk-0/messaging.png">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>This talk introduces basic external data representations and indirect messaging.</p>
+</p>
+    </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+    
+    <a href=topic05//talk-1/microservices.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3> # Microservices </h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="topic05/talk-1/microservices.png">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>This talk introduces the Microservices concept.</p>
+</p>
+    </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+    
+    <a href=topic05//talk-2/microservices.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3> # Microservices - Further Reading </h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="topic05/talk-2/microservices.jpg">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>Chapter 1 from [Builing Microservices](<a href="https://www.nginx.com/wp-">https://www.nginx.com/wp-</a></p>
+</p>
+    </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+    </div>
+  </div>
 
 
-    <footer>
-
-    </footer>
-    <script>
-      $(document).ready(function () {
-  $('img').addClass('ui image');
-  $('.ui.embed').embed();
-
-  const $images = $('.lab img');
-  jQuery.each($images, function (i) {
-    if (($images[i].alt).length > 0) {
-      const divImg = $(document.createElement('div')).addClass('ui basic segment');
-      $($images[i]).wrap(divImg);
-      const divLabel = $(document.createElement('div')).addClass('ui blue ribbon label');
-      divLabel.append($images[i].alt);
-      $(divLabel).insertBefore($images[i]);
-    }
-  });
-
-  $('.ui.embed').embed();
-
-  $('.ui.menu .item')
-      .tab({
-        history: true,
-        historyType: 'hash',
-      });
-
-  $('.popup').popup();
-
-  $('.ui.sidebar')
-      .sidebar({ context: $('.pushable') })
-      .sidebar('setting', 'transition', 'slide out')
-      .sidebar('attach events', '#toc');
-});
-
-    </script>
   </body>
-
  </html>

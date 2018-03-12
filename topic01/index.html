@@ -1,334 +1,422 @@
  <!DOCTYPE html>
  <html>
    <head>
-
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-
-     
-
-     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.css" type="text/css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/solarized-light.min.css" rel="stylesheet" />
-
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/languages/java.min.js"></script>
+     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.39/css/uikit.min.css" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-light.min.css" />
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.39/js/uikit.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.39/js/uikit-icons.min.js"></script>
+     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
      <script>hljs.initHighlightingOnLoad();</script>
-
-     
-
-     <style>
-       
-
-body 
-{
-  font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
-}
-
-figcaption
-{
-  margin-bottom: 20px;
-}
-
-.vertical-align
-{
-  display: flex;
-  align-items: center;
-}
-
-
-
-     </style>
-
    </head>
-
-  <body>
+  <body class="uk-background-muted">
     
-
-
-
-
-
-
-
-
-
-  <header class="ui middle aligned center aligned stackable grid segment">
-
-    <a class="ui blue left corner label">
-  <div id="showTOC" class="popup" data-content="Reveal TOC">
-    <i id="toc" class="sitemap big  icon"></i>
+  
+  <div class="uk-background-muted uk-flex uk-flex-center uk-flex-middle uk-text-center uk-padding-small" uk-grid>
+    
+  <div class="uk-width-1-2@m  uk-card uk-card-default uk-padding-small">
+    <h2> Introduction to Web Services  </h2>
+    <div class="uk-text-muted uk-text-small">
+      
+        Frank Walsh (fxwalsh@wit.ie)
+      
+    </div>
   </div>
-</a>
 
-    <div class="ui seven wide center aligned column grid">
-      <div class="ui row">
-        <h2> Introduction to Web Services </h2>
-      </div>
-      <div class="ui row">
+    
+  <div class="uk-padding">
+    
+      
+  <li>
+    <a href="../index.html"
+       title="To the top level Topics for this Module" pos="bottom" uk-tooltip>
+      <i class="fas fa-home fa-4x"></i>
+    </a>
+  </li>
+
+      
+  </div>
+
+    
+  
+
+    
+  
+    <div class="uk-card uk-card-default uk-padding-small">
+      <ul class="uk-iconnav">
         
-      </div>
-    </div>
-
+        
+          
+  
     
-
-
-
-<div class="two wide column sitemap">
-  <div class="popup" data-content="To the top level Topics for this Module...">
-    <a href="../index.html"> <i class="huge home icon"></i> Module </a>
-  </div>
-</div>
-
-    
-<div class="four wide column">
-  <div class="ui center aligned mini message segment">
-    Frank Walsh (fxwalsh@wit.ie).
-    <a  href="http://creativecommons.org/licenses/by-nc/4.0/" title="External link to http://creativecommons.org/licenses/by-nc/4.0/"
-        target="_blank">Creative Commons License
+      
+      
+  <li>
+    <a href="../talkwall.html"
+       title="All slides's in module" pos="bottom" uk-tooltip>
+      <i class="fas fa-object-group   fa-2x" style="color:#009688""></i>
     </a>
-  </div>
-</div>
+  </li>
 
     
-<div class="ui two wide right aligned column">
-  <div class="ui left aligned middle aligned very basic grid">
-    <div class="row">
-      <div class="popup" data-content="All Slides in Course">
-        <a href="../talkwall.html"> <i class="large film icon"></i> All Slides </a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="popup" data-content="All Labs in Course">
-        <a href="../labwall.html"> <i class="large lab icon"></i> All Labs </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-  </header>
-
-
-
-
-<script>
-  ((window.gitter = {}).chat = {}).options = {
-    room: ''
-  };
-</script>
-<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
-
-
-
-
-<div class="ui segment pushable">
-  <div class="ui inverted labeled icon left inline vertical sidebar menu">
-    <div class="header">
-      <a class="item" href="#">
-        Introduction to Web Services
-      </a>
-    </div>
-    <div class="menu">
-      
-      <a class="item" href="talk-1/web-services-intro.pdf">
-        Web Services
-      </a>
-      
-      <a class="item" href="talk-2/javascript-intro.pdf">
-         JavaScript
-      </a>
-      
-      <a class="item" href="talk-3/ES2015.pdf">
-         ECMA2015
-      </a>
-      
-      <a class="item" href="book-1/index.html">
-        Lab-JavaScript-01
-      </a>
-      
-      <a class="item" href="book-2/index.html">
-        Lab-JavaScript-02
-      </a>
-      
-    </div>
-  </div>
-
-  <div class="pusher">
-    <div class="ui container">
-      <div class="ui basic segment">
-          
-        <div class="ui four doubling stackable cards">
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header"> Web Services</div>
-  </div>
+  
     
-    <a href="talk-1/web-services-intro.pdf" target="_blank">
-    
-      <div class="image">
-        <img class="ui bordered rounded image" src="talk-1/web-services-intro.png">
-      </div>
+      
+      
+  <li>
+    <a href="../labwall.html"
+       title="All labs's in module" pos="bottom" uk-tooltip>
+      <i class="fas fa-flask          fa-2x" style="color:#00BCD4""></i>
     </a>
-    <div class="content">
-      <div class="description">
-        <p>This topic provides an introduction to Web Services. You will cover web services origins, the definition of a web service, web service examples, and the microservice concept.</p>
+  </li>
 
-      </div>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+        
+      </ul>
     </div>
   
-  
-</div>
 
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header">  JavaScript</div>
   </div>
-    
-    <a href="talk-2/javascript-intro.pdf" target="_blank">
-    
-      <div class="image">
-        <img class="ui bordered rounded image" src="talk-2/javascript-intro.png">
-      </div>
-    </a>
-    <div class="content">
-      <div class="description">
-        <p>This talk provides an introduction to Javascipt. You will cover JavaScript origins and primative types, objects,  programming constructs and functions used in Javascript.</p>
 
-      </div>
-    </div>
   
-  
-</div>
-
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="film large icon"></i></div>
-    <div class="header">  ECMA2015</div>
-  </div>
+  <div class="uk-container uk-padding-small">
     
-    <a href="talk-3/ES2015.pdf" target="_blank">
-    
-      <div class="image">
-        <img class="ui bordered rounded image" src="talk-3/ES2015.jpg">
-      </div>
-    </a>
-    <div class="content">
-      <div class="description">
-        <p>This talk provides an introduction to a few of the main features of ECMA2015(ES6)</p>
-
-      </div>
-    </div>
-  
-  
-</div>
-
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="lab large icon"></i></div>
-    <div class="header"> Lab-JavaScript-01</div>
-  </div>
-    
-    <a href="book-1/index.html">
       
-      <div class="image">
-        <img class="ui bordered rounded image" src="book-1/img/main.png">
-      </div>
-    </a>
-    <div class="content">
-      <div class="description">
-        <p>By completing a set of small exercises, this lab helps you develop an understanding of the basic syntax and fundemental concepts of th JaavaScript language. You should use the sample code provided with the lecture slides as an aid to this task.</p>
-
-      </div>
-    </div>
-  
-  
-</div>
-
-          
-          
-<div class="ui raised link card">
-  <div class="content">
-    <div class="right floated meta"><i class="lab large icon"></i></div>
-    <div class="header"> Lab-JavaScript-02</div>
-  </div>
     
-    <a href="book-2/index.html">
       
-      <div class="image">
-        <img class="ui bordered rounded image" src="book-2/img/main.png">
-      </div>
-    </a>
-    <div class="content">
-      <div class="description">
-        <p>The main aim of this lab is to prepare you for working with Node.js. The lab will focus on the behaviour constructs of JS, specifically, <strong>functions, methods and constructors</strong>.</p>
-
-      </div>
-    </div>
+    
+      
+    
+      
+    
+      
+    
+    <div class="uk-child-width-1-4@s uk-flex uk-flex-center" uk-grid uk-height-match="target: > div > .uk-card">
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
   
+    uk-card-hover
   
-</div>
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+    
+    <a href=.//talk-1/web-services-intro.pdf target="_blank">
+  
 
-          
-
-        </div>
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3> Web Services </h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
       </div>
     </div>
   </div>
-</div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="./talk-1/web-services-intro.png">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>This topic provides an introduction to Web Services. You will cover web services origins, the definition of a web service, web service examples, and the microservice concept.</p>
+</p>
+    </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+    
+    <a href=.//talk-2/javascript-intro.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3>  JavaScript </h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="./talk-2/javascript-intro.png">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>This talk provides an introduction to Javascipt. You will cover JavaScript origins and primative types, objects,  programming constructs and functions used in Javascript.</p>
+</p>
+    </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+    
+    <a href=.//talk-3/ES2015.pdf target="_blank">
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3>  ECMA2015 </h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-object-group   fa-2x" style="color:#009688" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="./talk-3/ES2015.jpg">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>This talk provides an introduction to a few of the main features of ECMA2015(ES6)</p>
+</p>
+    </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+      
+    
+    <a href=./book-1/index.html>
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3> Lab-JavaScript-01</h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-flask          fa-2x" style="color:#00BCD4" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="./book-1/img/main.png">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>By completing a set of small exercises, this lab helps you develop an understanding of the basic syntax and fundemental concepts of th JaavaScript language. You should use the sample code provided with the lecture slides as an aid to this task.</p>
+</p>
+    </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+        
+          <div>
+            
+              
+  <div class="uk-card uk-card-default 
+  
+    uk-card-hover
+  
+ uk-card-small uk-text-center uk-animation-scale-up">
+    
+  
+    
+      
+      
+    
+    <a href=./book-2/index.html>
+  
+
+    
+  <div class="uk-card-header">
+    <div uk-grid>
+      <div class="uk-width-expand@m">
+        <h3> Lab-JavaScript-02</h3>
+      </div>
+      <div class="uk-width-1-4@m">
+        <i class=" fas fa-flask          fa-2x" style="color:#00BCD4" > </i>
+      </div>
+    </div>
+  </div>
+
+    
+  
+
+    
+  <div class="uk-card-body">
+    
+      <img src="./book-2/img/main.png">
+    
+  </div>
+
+    
+  
+    </a>
+  
+
+    
+  
+    <div class="uk-card-footer">
+      <p> <p>The main aim of this lab is to prepare you for working with Node.js. The lab will focus on the behaviour constructs of JS, specifically, <strong>functions, methods and constructors</strong>.</p>
+</p>
+    </div>
+  
+
+    
+  
+
+  </div>
+
+            
+          </div>
+        
+      
+    </div>
+  </div>
 
 
-    <footer>
-
-    </footer>
-    <script>
-      $(document).ready(function () {
-  $('img').addClass('ui image');
-  $('.ui.embed').embed();
-
-  const $images = $('.lab img');
-  jQuery.each($images, function (i) {
-    if (($images[i].alt).length > 0) {
-      const divImg = $(document.createElement('div')).addClass('ui basic segment');
-      $($images[i]).wrap(divImg);
-      const divLabel = $(document.createElement('div')).addClass('ui blue ribbon label');
-      divLabel.append($images[i].alt);
-      $(divLabel).insertBefore($images[i]);
-    }
-  });
-
-  $('.ui.embed').embed();
-
-  $('.ui.menu .item')
-      .tab({
-        history: true,
-        historyType: 'hash',
-      });
-
-  $('.popup').popup();
-
-  $('.ui.sidebar')
-      .sidebar({ context: $('.pushable') })
-      .sidebar('setting', 'transition', 'slide out')
-      .sidebar('attach events', '#toc');
-});
-
-    </script>
   </body>
-
  </html>

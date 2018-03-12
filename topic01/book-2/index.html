@@ -1,30 +1,22 @@
- <!DOCTYPE html>
- <html>
-   <head>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-light.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+      
 
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-     
-
-     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.css" type="text/css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/solarized-light.min.css" rel="stylesheet" />
-
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/languages/java.min.js"></script>
-     <script>hljs.initHighlightingOnLoad();</script>
-
-     
-
-     <style>
-       
-
-body 
+body
 {
   font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
 }
@@ -40,17 +32,12 @@ figcaption
   align-items: center;
 }
 
-
-
-     </style>
-
-   </head>
-
-  <body>
-    
-
-<style>
-  
+.ui.segment.pushable
+{
+  margin: 0;
+  padding: 1rem 0;
+  overflow: visible;
+}
 
 code
 {
@@ -102,107 +89,112 @@ body
 
 
 
-</style>
+    </style>
+  </head>
 
-<div class="ui fixed top pointing inverted stackable menu labmenu">
-  <header class="header item">
-    <i id="toc" class="sitemap icon"></i>
-    <a href="../index.html">
-      Introduction to Web Services
-    </a>
-  </header>
-  <div class="right tab-menu menu">
+  <body>
     
-    <a class="item" data-tab="Lab-JavaScript-02">
-      Lab-JavaScript-02
-    </a>
     
-    <a class="item" data-tab="01">
-      01
-    </a>
-    
-    <a class="item" data-tab="02">
-      02
-    </a>
-    
-    <a class="item" data-tab="03">
-      03
-    </a>
-    
-    <div class="item">
-      
+
+    <div class="ui fixed top pointing inverted stackable menu labmenu">
+      <header class="header item">
+        <i id="toc" class="sitemap icon"></i>
+        <a href="../index.html">
+          Introduction to Web Services 
+        </a>
+      </header>
+      <div class="right tab-menu menu">
+        
+          <a class="item" data-tab="Lab-JavaScript-02">
+            Lab-JavaScript-02
+          </a>
+        
+          <a class="item" data-tab="01">
+            01
+          </a>
+        
+          <a class="item" data-tab="02">
+            02
+          </a>
+        
+          <a class="item" data-tab="03">
+            03
+          </a>
+        
+        <div class="item">
+          
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="ui segment pushable" >
-
-  <div class="ui inverted labeled icon left inline vertical sidebar menu">
-    
-      
-        <a class="item" href="../../topic01/book-1/index.html">
-          Lab-JavaScript-01
-        </a>
-      
-    
-      
-        <a class="active item" href="../../topic01/book-2/index.html">
-          Lab-JavaScript-02
-        </a>
-      
-    
-      
-        <a class="item" href="../../topic02/book-1/index.html">
-          node_lab1
-        </a>
-      
-    
-      
-        <a class="item" href="../../topic03/book-1/index.html">
-          node_lab2
-        </a>
-      
-    
-      
-        <a class="item" href="../../topic03/book-2/index.html">
-          Assignment-1
-        </a>
-      
-    
-      
-        <a class="item" href="../../topic04/book1/index.html">
-          node-lab3
-        </a>
-      
-    
-      
-        <a class="item" href="../../topic05/book-1/index.html">
-          Lab-PubSub-01
-        </a>
-      
-    
-  </div>
-  <div class="pusher" tabindex="-1">
-    <div class="ui basic segment" id="labchat">
-      <br>
-      
-      <div  class="ui tab segment lab" data-tab="Lab-JavaScript-02">
-        <h1>Javascript Introduction</h1>
+    <div class="ui segment pushable">
+      <div class="ui inverted labeled icon left inline vertical sidebar menu">
+        <br><br>
+        
+          
+            <a class="item" href="../../topic01/book-1/index.html">
+              Lab-JavaScript-01
+            </a>
+          
+        
+          
+            <a class="active item" href="../../topic01/book-2/index.html">
+              Lab-JavaScript-02
+            </a>
+          
+        
+          
+            <a class="item" href="../../topic02/book-1/index.html">
+              node_lab1
+            </a>
+          
+        
+          
+            <a class="item" href="../../topic03/book-1/index.html">
+              node_lab2
+            </a>
+          
+        
+          
+            <a class="item" href="../../topic03/book-2/index.html">
+              Assignment-1
+            </a>
+          
+        
+          
+            <a class="item" href="../../topic04/book1/index.html">
+              node-lab3
+            </a>
+          
+        
+          
+            <a class="item" href="../../topic05/book-1/index.html">
+              Lab-PubSub-01
+            </a>
+          
+        
+      </div>
+      <div class="pusher" tabindex="-1">
+        <div class="ui basic segment" id="labchat">
+          <br>
+          
+            <div  class="ui tab segment lab" data-tab="Lab-JavaScript-02">
+              <h1>Javascript Introduction</h1>
 <p>The main aim of this lab is to prepare you for working with Node.js. The lab will focus on the behaviour constructs of JS, specifically, <strong>functions, methods and constructors</strong>.</p>
 
-      </div>
-     
-      <div  class="ui tab segment lab" data-tab="01">
-        <h1>Node.js</h1>
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="01">
+              <h1>Node.js</h1>
 <p>If you do not have Node.js installed in you machine, please go to <a href="http://nodejs.org/">nodejs.org</a> and download/install node for your platform. To check if node is working, open a command line/terminal window on your machine and enter <code>node -v</code>. IT should respond as follows:</p>
 <pre><code>&gt; node -v
 v8.4.0</code></pre>
 <p>The work for this lab has been tested with node version 0.13.0. </p>
 
-      </div>
-     
-      <div  class="ui tab segment lab" data-tab="02">
-        <h1>Javascript (JS) Functions.</h1>
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="02">
+              <h1>Javascript (JS) Functions.</h1>
 <p>The related sample code accompanying the Javascript lecture slides (available <a href="./javascript-lab_files/functions.js">here</a>) should be used as a guide to implementing the exercises for this lab.</p>
 <h2>Start.</h2>
 <p>Use <a href="./javascript-lab_files/lab_functions.js">this JS code</a> as the starting point for this lab exercise. Open the downloaded file and examine its initial content.</p>
@@ -379,10 +371,10 @@ The <em>split</em> methods segments a string based on a given character, ’-’
 <p>The log statement should display ‘Car age: 5’.</p>
 <hr>
 
-      </div>
-     
-      <div  class="ui tab segment lab" data-tab="03">
-        <h2>ES6/ES2015.</h2>
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="03">
+              <h2>ES6/ES2015.</h2>
 <p><a href="./javascript-lab_files/es6.zip">This archive</a> contains the sample ES6-compliant JavaScript code discussed in the lecture. Unzip it, in the terminal window go to its base folder (es6samples) and type the command:</p>
 <pre><code class="lang-bash">   $ npm install</code></pre>
 <p>This will download the babel libraries required transcode and run your ES6 scripts from the Command Line Interface(CLI); it may take some time.
@@ -415,26 +407,14 @@ This command can be quite slow the first time, so be patient.</p>
 <pre><code class="lang-bash">  console.log(`Alarm: ${aCar.hasFeature(&#39;alarm&#39;)}` );</code></pre>
 <p>and run it.</p>
 
-      </div>
-     
-    </div>
-
-  </div>
-
-</div>
-<!--  <div class="ui bottom fixed borderless right menu">
-    <div class="ui right tiny menu">
-      <div class="ui mini message segment">
-        Frank Walsh (fxwalsh@wit.ie).
-        <a  href="http://creativecommons.org/licenses/by-nc/4.0/" title="External link to http://creativecommons.org/licenses/by-nc/4.0/"
-            target="_blank">Creative Commons License
-        </a>
+            </div>
+          
+        </div>
       </div>
     </div>
-  </div>-->
 
-<script>
-  $(document).on('keydown', function (e) {
+    <script>
+      $(document).on('keydown', function(e) {
   e = e || window.event;
   var nextTab;
   switch (e.which || e.keyCode) {
@@ -454,46 +434,39 @@ This command can be quite slow the first time, so be patient.</p>
   }
 });
 
-</script>
-
-
-
-    <footer>
-
-    </footer>
-    <script>
-      $(document).ready(function () {
+      $(document).ready(function() {
   $('img').addClass('ui image');
+
   $('.ui.embed').embed();
 
   const $images = $('.lab img');
-  jQuery.each($images, function (i) {
-    if (($images[i].alt).length > 0) {
-      const divImg = $(document.createElement('div')).addClass('ui basic segment');
+  jQuery.each($images, function(i) {
+    if ($images[i].alt.length > 0) {
+      const divImg = $(document.createElement('div')).addClass(
+        'ui basic segment',
+      );
       $($images[i]).wrap(divImg);
-      const divLabel = $(document.createElement('div')).addClass('ui blue ribbon label');
+      const divLabel = $(document.createElement('div')).addClass(
+        'ui blue ribbon label',
+      );
       divLabel.append($images[i].alt);
       $(divLabel).insertBefore($images[i]);
     }
   });
 
-  $('.ui.embed').embed();
-
-  $('.ui.menu .item')
-      .tab({
-        history: true,
-        historyType: 'hash',
-      });
+  $('.ui.menu .item').tab({
+    history: true,
+    historyType: 'hash',
+  });
 
   $('.popup').popup();
 
   $('.ui.sidebar')
-      .sidebar({ context: $('.pushable') })
-      .sidebar('setting', 'transition', 'slide out')
-      .sidebar('attach events', '#toc');
+    .sidebar({ context: $('.pushable') })
+    .sidebar('setting', 'transition', 'slide out')
+    .sidebar('attach events', '#toc');
 });
 
     </script>
   </body>
-
- </html>
+</html>
