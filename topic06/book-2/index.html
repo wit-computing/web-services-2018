@@ -100,17 +100,25 @@ body
       <header class="header item">
         <i id="toc" class="sitemap icon"></i>
         <a href="../index.html">
-          Microservices 
+          # Unit Testing APIs 
         </a>
       </header>
       <div class="right tab-menu menu">
         
-          <a class="item" data-tab="Lab-PubSub-01">
-            Lab-PubSub-01
+          <a class="item" data-tab="api-testing">
+            api-testing
           </a>
         
           <a class="item" data-tab="01">
             01
+          </a>
+        
+          <a class="item" data-tab="02">
+            02
+          </a>
+        
+          <a class="item" data-tab="03">
+            03
           </a>
         
         <div class="item">
@@ -160,7 +168,7 @@ body
           
         
           
-            <a class="active item" href="../../topic05/book-1/index.html">
+            <a class="item" href="../../topic05/book-1/index.html">
               Lab-PubSub-01
             </a>
           
@@ -172,7 +180,7 @@ body
           
         
           
-            <a class="item" href="../../topic06/book-2/index.html">
+            <a class="active item" href="../../topic06/book-2/index.html">
               api-testing
             </a>
           
@@ -182,100 +190,112 @@ body
         <div class="ui basic segment" id="labchat">
           <br>
           
-            <div  class="ui tab segment lab" data-tab="Lab-PubSub-01">
-              <p>In this lab you will add publish subscribe to the contacts service from the last lab. We will implement the confirmation email example from the Microservices talk.</p>
+            <div  class="ui tab segment lab" data-tab="api-testing">
+              <h1>API Testing</h1>
+<p>This lab shows you how to test a Node API using Mocha, Should, and SuperTest.</p>
 
             </div>
           
             <div  class="ui tab segment lab" data-tab="01">
-              <h1>Publish Subscribe</h1>
-<h3>Publish-Subscribe Service</h3>
-<p>Create an account with <a href="http://www.pubnub.com">PubNub</a> .</p>
-<h3>EMail Service</h3>
-<p>Create an account with <a href="http://mailgun.com">MailGun</a> .</p>
-<h3>Update Contact Service</h3>
-<p>Update the contact service to publish to your PubNub publish subscribe service.
-Add the PubNub.js package to your service using NPM</p>
-<pre><code>npm install pubnub --save</code></pre>
-<p>In the base folder of the project  folder, create a new module called <strong>events.js</strong> and add the following code. Use your keys from the PubNub:</p>
-<pre><code class="lang-javascript">&#39;use strict&#39;;
-// Pubnub service configuration
-// ===========================
+              <h1>Set up</h1>
+<ul>
+<li><p>You need a working version of the Contacts api for this lab. The solution to the last lab you completed will will do. Otherwise, you can get the solution from Github.</p>
+</li>
+<li><p>Create a new folder for this lab, for example <em>lab-node-testing</em> and copy the contents of the last lab into this folder.</p>
+</li>
+</ul>
+<h3>Install dependencies</h3>
+<ul>
+<li>You need Mocha, Should and SuperTest. Install as development dependencies into your new lab folder as follows:</li>
+</ul>
+<pre><code>npm install --save-dev mocha
 
-var PubNub = require(&#39;pubnub&#39;);
+npm install --save-dev should
 
-var pubnub = new PubNub({
-            publishKey : &#39;YOUR_KEY&#39;,
-            subscribeKey : &#39;YOUR_KEY&#39;,
-            secretKey: &quot;YOUR_KEY&quot;,
-            ssl: true
-});
+npm install --save-dev supertest</code></pre>
+<h3>Create First Test</h3>
+<ul>
+<li>Create a <code>test</code> folder in <code>/api/contacts</code> and create a new file called <code>/api/contacts/test/testContacts.js</code></li>
+<li>Insert the following code:</li>
+</ul>
+<pre><code class="lang-javascript">var supertest = require(&quot;supertest&quot;);
+var should = require(&quot;should&quot;);
 
+// This agent refers to PORT where program is runninng.
+var server = supertest.agent(&quot;http://localhost:8080&quot;);
 
+// UNIT test begin
 
-module.exports = {
-  publish: function(channel, message){
-    pubnub.publish({
-             channel: channel,
-             message: JSON.stringify(message)},
-             function(status, response) {
-               if (status.error) {
-                 console.log(status)
-               } else {
-                 console.log(&quot;message Published w/ timetoken&quot;, response.timetoken)
-               }
-             });
-  },
-  subscribe: function(channel, callback){
+describe(&quot;Contacts API unit tests&quot;,function(){
+  // #1 should return contacts representation in json
+  it(&quot;should return collection of JSON documents&quot;,function(done){
 
-    pubnub.addListener({
-
-        message: function(m) {
-            // handle message
-
-            var msg = m.message; // The Payload
-
-            callback(msg);
-            }
-  });
-    // Subscribe to the demo_tutorial channel
-    pubnub.subscribe({
-        channels: [channel]
+    // calling home page api
+    server
+    .get(&quot;/api/contacts&quot;)
+    .expect(&quot;Content-type&quot;,/json/)
+    .expect(200) // This is HTTP response
+    .end(function(err,res){
+      // HTTP status should be 200
+      res.status.should.equal(200);
+      done();
     });
-  }
+  });
+
+});</code></pre>
+<h2>update package.json</h2>
+<ul>
+<li>Add the following script entry to the app&#39;s package.json file.</li>
+</ul>
+<pre><code class="lang-json">scripts:{  
+  &quot;test&quot; : &quot;mocha \&quot;api/**/test/*.js\&quot;&quot;,
+  ...
 }</code></pre>
-<p>In <strong>api/contacts/index.js</strong> add the following code just under the mongodb initialisation.</p>
-<pre><code>var contactEvent = require(&quot;../../events.js&quot;)</code></pre>
-<p>Now add the following code to the callback function on creation of a contact:</p>
-<pre><code class="lang-javascript">contactEvent.publish(&#39;create_contact_event&#39;, contact);</code></pre>
-<p>Test your service by adding a new contact. Check the console to see if the event is successfully published.</p>
-<h3>EMail Service</h3>
-<p>Add the MailGun-js Package to your service</p>
-<pre><code>npm install mailgun-js --save</code></pre>
-<p>Create a new Node application that subscribes to your PubNub app and sends a confirmation mail every time a new contact event is created
-In the base folder of your service, create a new file called <strong>mail_app.js</strong> and add the following code, updating the key and domain values  from your MailGun account:</p>
-<pre><code class="lang-javascript">var api_key = &#39;YOUR_KEY&#39;;
-var domain = &#39;sandboxXXX.mailgun.org&#39;;
-var mailgun = require(&#39;mailgun-js&#39;)({apiKey: api_key, domain: domain});
-var contactEvent = require(&#39;./events&#39;);
+<p>The above script entry will run mocha against the files matching the pattern provided (i.e. all the test folders in the api routing folders)</p>
+<ul>
+<li>Now test by starting your service and, in the root of the lab folder, run the following</li>
+</ul>
+<pre><code>npm run test</code></pre>
+<p>You should see something similar to the following:</p>
+<p><img src="./img/main.png" alt="First Mocha Test"></p>
 
-var  messageHandler = function(m) {
-         // The Payload
-        var data = {
-            from: &#39;WIT BSc IT &lt;me@wit.ie&gt;&#39;,
-            to: JSON.parse(m).email,
-            subject: &#39;Welcome&#39;,
-            text: &#39;Welcome to the company!!!&#39;
-          };
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="02">
+              <h1>Testing the Contacts API</h1>
+<p>Now lets try to test the add contact function of the API.</p>
+<ul>
+<li>Add another unit test to the last test. This time we&#39;ll use SuperTest to post a new contact and test for the correct status:</li>
+</ul>
+<pre><code class="lang-javascript">
+// #2 add a contact
+it(&quot;should add a new contact&quot;,function(done){
 
-          mailgun.messages().send(data, function (error, body) {
-            console.log(body);
-          });
-        }
+  // post to /api/contacts
+  server.post(&#39;/api/contacts&#39;)
+  .send({name:&quot;Contact 99&quot;,address:&quot;123 Strand St&quot;})
+  .expect(&quot;Content-type&quot;,/json/)
+  .expect(201)
+  .end(function(err,res){
+    res.status.should.equal(201);
+    done();
+  });
+});</code></pre>
+<p>Now run the test again. You should see something similar to the following:</p>
+<p><img src="./img/add_contact.png" alt="Add a contact test"></p>
+<h2>Update and Delete</h2>
+<p>Now try to implement the tests for the following routes</p>
+<blockquote>
+<p>PUT /api/contacts/[:id]
+DELETE /api/contacts/[:id]
+GET /api/badroute    hint: test for 404</p>
+</blockquote>
+<p>Use the notes and online resources for support.</p>
 
-contactEvent.subscribe(&#39;create_contact_event&#39;, messageHandler)</code></pre>
-<p>Now test by adding a contact via your api. Make sure to include an email field in the contact object.</p>
-
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="03">
+              
             </div>
           
         </div>
