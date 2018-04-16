@@ -267,32 +267,7 @@ UserSchema.methods.comparePassword = function(passw, cb) {
     });
 };
 
-moduimport userModel from &#39;./api/users/userModel&#39;;
-
-const users = [
-  {
-    &#39;username&#39;: &#39;user1&#39;,
-    &#39;password&#39;: &#39;test1&#39;,
-  },
-  {
-    &#39;username&#39;: &#39;user2&#39;,
-    &#39;password&#39;: &#39;test2&#39;,
-  },
-];
-
-export const loadUsers = () =&gt; {
-  userModel.find({}).remove(() =&gt; {
-    users.forEach((user)=&gt;{
-                userModel.create(user, (err, docs)=&gt;{
-                if (err) {
-                    console.log(`failed to Load User Data: ${err}`);
-                }
-                }
-              );
-});
-    console.info(`${users.length} users were successfully stored.`);
-});
-};le.exports = mongoose.model(&#39;User&#39;, UserSchema);</code></pre>
+module.exports = mongoose.model(&#39;User&#39;, UserSchema);</code></pre>
 <p>This script defines the schema for a user. Note that it includes a pre-save hook that encrypts the password property before it is saved or updated. Also, a comparePassword() instance method is added to the schema to allow authentication of users.</p>
 <h1>Seed database with User Data</h1>
 <p>For development and testing purposes it would be a good idea to seed the database with some user data.</p>
