@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-light.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+      
+
+body
+{
+  font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
+}
+
+figcaption
+{
+  margin-bottom: 20px;
+}
+
+.vertical-align
+{
+  display: flex;
+  align-items: center;
+}
+
+.ui.segment.pushable
+{
+  margin: 0;
+  padding: 1rem 0;
+  overflow: visible;
+}
+
+code
+{
+  font-family: "Monaco";
+  font-size: 110%;
+}
+
+img
+{
+  padding:1px;
+  border:1px solid black;
+}
+
+h1
+{
+  font-style:italic;
+  font-size:130%;
+  border-bottom:thin solid black;
+}
+
+h2
+{
+  font-size:110%;
+  border-bottom: thin solid black;
+}
+
+h3
+{
+  font-size:100%;
+  border-bottom: thin solid black;
+}
+
+body
+{
+  overflow-y: scroll;
+}
+
+.pushable > .pusher
+{
+  padding-bottom: 1.5rem;
+}
+
+.ui.segment.pushable
+{
+  margin: 0;
+  padding: 1rem 0;
+  overflow: visible;
+}
+
+
+
+    </style>
+  </head>
+
+  <body>
+    
+    
+
+    <div class="ui fixed top pointing inverted stackable menu labmenu">
+      <header class="header item">
+        <i id="toc" class="sitemap icon"></i>
+        <a href="../index.html">
+           Authentication using JWT and Passport 
+        </a>
+      </header>
+      <div class="right tab-menu menu">
+        
+          <a class="item" data-tab="Authentication-JWT">
+            Authentication-JWT
+          </a>
+        
+          <a class="item" data-tab="01">
+            01
+          </a>
+        
+          <a class="item" data-tab="02">
+            02
+          </a>
+        
+          <a class="item" data-tab="03">
+            03
+          </a>
+        
+          <a class="item" data-tab="04">
+            04
+          </a>
+        
+          <a class="item" data-tab="05">
+            05
+          </a>
+        
+        <div class="item">
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="ui segment pushable">
+      <div class="ui inverted labeled icon left inline vertical sidebar menu">
+        <br><br>
+        
+          
+            <a class="item" href="../../topic01/book-1/index.html">
+              Lab-JavaScript-01
+            </a>
+          
+        
+          
+            <a class="item" href="../../topic01/book-2/index.html">
+              Lab-JavaScript-02
+            </a>
+          
+        
+          
+            <a class="item" href="../../topic02/book-1/index.html">
+              node_lab1
+            </a>
+          
+        
+          
+            <a class="item" href="../../topic03/book-1/index.html">
+              node_lab2
+            </a>
+          
+        
+          
+            <a class="item" href="../../topic03/book-2/index.html">
+              Assignment-1
+            </a>
+          
+        
+          
+            <a class="item" href="../../topic04/book1/index.html">
+              node-lab3
+            </a>
+          
+        
+          
+            <a class="item" href="../../topic05/book-1/index.html">
+              Lab-PubSub-01
+            </a>
+          
+        
+          
+            <a class="item" href="../../topic06/book-1/index.html">
+              api-testing-ES6
+            </a>
+          
+        
+          
+            <a class="active item" href="../../topic08/book-01/index.html">
+              Authentication-JWT
+            </a>
+          
+        
+      </div>
+      <div class="pusher" tabindex="-1">
+        <div class="ui basic segment" id="labchat">
+          <br>
+          
+            <div  class="ui tab segment lab" data-tab="Authentication-JWT">
+              <h1>Authentication using JWT and Passport</h1>
+<p>This lab implements a JWT-based Authentication strategy on the Hacker News solution from the previous lab.</p>
+
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="01">
+              <h1>Introduction</h1>
+<p>This lab will create authentication with JSON Web Tokens for the hacker news solution in previous labs. You will include the jwt token with every request, meaning that we don’t need sessions. This way you don’t need cookies, but clients of the service will need to save the JWT in localStorage or other places on the frontend.</p>
+<p>In this lab you will:</p>
+<ul>
+<li>creating a /api/users route to register and acquire a token</li>
+<li>add authorisation middleware the a /pi/posts route, making it only is available to logged in users with a JSON web token</li>
+</ul>
+<h1>Set up</h1>
+<p>Copy and paste the solution from the last lab(node-lab4) into a new folder called <em>node-lab5</em>. You can find a solution to the last lab <a href="https://github.com/fxwalsh/node-samples-2018.git">here</a>.</p>
+<h2>Install dependencies</h2>
+<p>You&#39;ll need the following dependencies to implement the authentication functionality:</p>
+<pre><code class="lang-bash">npm install --save passport passport-jwt jsonwebtoken bcrypt</code></pre>
+<h2>Create Mongoose User Model</h2>
+<p>You will need to create a new user model for use in authentication and authorisation.<br>+ Create a new folder <strong>/api/users/</strong> in the root project folder.
++ Create a new file called <strong>userModel.js</strong> and enter the following code:</p>
+<pre><code class="lang-javascript">import mongoose from &#39;mongoose&#39;;
+import bcrypt from  &#39;bcrypt-nodejs&#39;;
+
+const Schema = mongoose.Schema;
+
+
+const UserSchema = new Schema({
+  username: {
+        type: String,
+        unique: true,
+        required: true,
+    },
+  password: {
+        type: String,
+        required: true,
+    },
+});
+
+UserSchema.pre(&#39;save&#39;, function(next) {
+    const user = this;
+    if (this.isModified(&#39;password&#39;) || this.isNew) {
+        bcrypt.genSalt(10, (err, salt)=&gt; {
+            if (err) {
+                return next(err);
+            }
+            bcrypt.hash(user.password, salt, null, (err, hash)=&gt; {
+                if (err) {
+                    return next(err);
+                }
+                user.password = hash;
+                next();
+            });
+        });
+    } else {
+        return next();
+    }
+});
+
+UserSchema.methods.comparePassword = function(passw, cb) {
+    bcrypt.compare(passw, this.password, (err, isMatch) =&gt; {
+        if (err) {
+            return cb(err);
+        }
+        cb(null, isMatch);
+    });
+};
+
+moduimport userModel from &#39;./api/users/userModel&#39;;
+
+const users = [
+  {
+    &#39;username&#39;: &#39;user1&#39;,
+    &#39;password&#39;: &#39;test1&#39;,
+  },
+  {
+    &#39;username&#39;: &#39;user2&#39;,
+    &#39;password&#39;: &#39;test2&#39;,
+  },
+];
+
+export const loadUsers = () =&gt; {
+  userModel.find({}).remove(() =&gt; {
+    users.forEach((user)=&gt;{
+                userModel.create(user, (err, docs)=&gt;{
+                if (err) {
+                    console.log(`failed to Load User Data: ${err}`);
+                }
+                }
+              );
+});
+    console.info(`${users.length} users were successfully stored.`);
+});
+};le.exports = mongoose.model(&#39;User&#39;, UserSchema);</code></pre>
+<p>This script defines the schema for a user. Note that it includes a pre-save hook that encrypts the password property before it is saved or updated. Also, a comparePassword() instance method is added to the schema to allow authentication of users.</p>
+<h1>Seed database with User Data</h1>
+<p>For development and testing purposes it would be a good idea to seed the database with some user data.</p>
+<ul>
+<li>Create a new file called <strong>userData.js</strong> in the root foldes of the project and enter the following javascipt code:</li>
+</ul>
+<pre><code class="lang-javascript">import userModel from &#39;./api/users/userModel&#39;;
+
+const users = [
+  {
+    &#39;username&#39;: &#39;user1&#39;,
+    &#39;password&#39;: &#39;test1&#39;,
+  },
+  {
+    &#39;username&#39;: &#39;user2&#39;,
+    &#39;password&#39;: &#39;test2&#39;,
+  },
+];
+
+export const loadUsers = () =&gt; {
+  userModel.find({}).remove(() =&gt; {
+    users.forEach((user)=&gt;{
+                userModel.create(user, (err, docs)=&gt;{
+                if (err) {
+                    console.log(`failed to Load User Data: ${err}`);
+                }
+                }
+              );
+});
+    console.info(`${users.length} users were successfully stored.`);
+});
+};</code></pre>
+<ul>
+<li>Open a terminal window in the root folder and start the app by entering <code>npm start</code>. Comfirm that the users are being loaded by checking that you see the following console output:</li>
+</ul>
+<pre><code class="lang-bash">[nodemon] starting `babel-node index.js`
+body-parser deprecated undefined extended: provide extended option index.js:82:30
+Server running at 8080
+2 users were successfully stored.
+4 contacts were successfully stored.
+4 posts were successfully stored.</code></pre>
+
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="02">
+              <h1>User API</h1>
+<p>You will now create the routes for logging in (authentication) and  registering new users.</p>
+<h3>Get Users</h3>
+<p>+In <strong>/api/users/</strong> create a new file called <strong>index.js</strong>. Add the following code to the file:</p>
+<pre><code class="lang-javascript">import express from &#39;express&#39;;
+import User from &#39;./userModel&#39;;
+import asyncHandler from &#39;express-async-handler&#39;;
+import jwt from &#39;jsonwebtoken&#39;;
+
+const router = express.Router(); // eslint-disable-line
+
+// Get all contacts, using try/catch to handle errors
+router.get(&#39;/&#39;, async (req, res) =&gt; {
+  try {
+    const contacts = await User.find();
+    res.status(200).json(contacts);
+  } catch (error) {
+    handleError(res, error.message);
+  }
+});
+
+export default router;</code></pre>
+<ul>
+<li>Using Postman (or in a browser), make a HTTP GET request for <a href="http://localhost:8080/api/users">http://localhost:8080/api/users</a>. You should get the following:</li>
+</ul>
+<pre><code class="lang-json">[{&quot;_id&quot;:&quot;5ad4a415d868c95db7089568&quot;,
+  &quot;username&quot;:&quot;user1&quot;,
+  &quot;password&quot;:&quot;$2a$10$Yr2RaZZys7/ot/cfKQOmHOgiJdC53FOYfb7m6dzA5yXMh8wvUwuDq&quot;,&quot;__v&quot;:0},
+{&quot;_id&quot;:&quot;5ad4a415d868c95db7089569&quot;,
+    &quot;username&quot;:&quot;user2&quot;,
+    &quot;password&quot;:&quot;$2a$10$0WvCY4f5g9QBOPwzHqoIquSGMSAqX3uT5I82LQp.NwPkKGWKFJQcW&quot;,
+    &quot;__v&quot;:0}]</code></pre>
+<ul>
+<li>Note how the passwords are being hashed before being saved in the database.</li>
+</ul>
+<h3>Register/Authenicate Users</h3>
+<p>We will use the POST on /api/users to both authenticate and register users. We will use the &#39;action&#39; parameter in the query string to distinguish between both actions.</p>
+<ul>
+<li>add the following route to /api/users/index.js</li>
+</ul>
+<pre><code class="lang-javascript">// Register/login a user, using async handler
+router.post(&#39;/&#39;, asyncHandler(async (req, res) =&gt; {
+  if (!req.body.username || !req.body.password) {
+    res.json({
+      success: false,
+      msg: &#39;Please pass username and password.&#39;,
+    });
+  };
+  if (req.query.action === &#39;register&#39;) {
+    const newUser = new User({
+      username: req.body.username,
+      password: req.body.password,
+    });
+    // save the user
+    await newUser.save();
+    res.status(201).json({
+      success: true,
+      msg: &#39;Successful created new user.&#39;,
+    });
+  } else {
+    const user = await User.findOne({
+      username: req.body.username,
+    });
+    if (!user) return res.status(401).send({success: false, msg: &#39;Authentication failed. User not found.&#39;});
+    user.comparePassword(req.body.password, (err, isMatch) =&gt; {
+      if (isMatch &amp;&amp; !err) {
+        // if user is found and password is right create a token
+        const token = jwt.sign(user.username, process.env.secret);
+        // return the information including token as JSON
+        res.status(200).json({
+          success: true,
+          token: &#39;JWT &#39; + token,
+        });
+      } else {
+        res.status(401).send({
+          success: false,
+          msg: &#39;Authentication failed. Wrong password.&#39;,
+        });
+      }
+    });
+  };
+}));</code></pre>
+<p>The above  funtion checks for both username and password in the request. If the action parameter is set to regester, it attempts to create a new user in the database (using the mongoode user model). Otherwise, it authenticates the user and returns a JWT token signed with the users username.</p>
+
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="03">
+              <h1>Test the User API</h1>
+<p>We should now construct some tests to check the user API is working as designed.
++ create a new file <strong>/test/testUsersAPI.js</strong> and enter the following tests:</p>
+<pre><code class="lang-javascript">import supertest from &#39;supertest&#39;;
+import {app} from &#39;./../index.js&#39;;
+import should from &#39;should&#39;; // eslint-disable-line
+// UNIT test begin
+describe(&#39;Users API unit test&#39;, function() {
+  this.timeout(120000); // eslint-disable-line
+  // #1 return a collection of json documents
+  it(&#39;should return collection of JSON documents&#39;, function(done) {
+    // calling home page api
+    supertest(app)
+    .get(&#39;/api/users&#39;)
+    .expect(&#39;Content-type&#39;, /json/)
+    .expect(200) // This is the HTTP response
+    .end(function(err, res) {
+        // HTTP status should be 200
+        res.status.should.equal(200);
+        done();
+    });
+  });
+
+  // #2 add a user
+  it(&#39;should register a user&#39;, function(done) {
+    // post to /api/contacts
+    supertest(app)
+    .post(&#39;/api/users&#39;)
+    .query({action: &#39;register&#39;})
+    .send({username: &#39;Contact 99&#39;, password: &#39;test1&#39;})
+    .expect(&#39;Content-type&#39;, /json/)
+    .expect(201)
+    .end(function(err, res) {
+      res.status.should.equal(201);
+      res.body.success.should.equal(true);
+      done();
+    });
+  });
+
+  // #3 login a user
+  it(&#39;should authenticate a user&#39;, function(done) {
+    // post to /api/contacts
+    supertest(app)
+    .post(&#39;/api/users&#39;)
+    .send({username: &#39;user1&#39;, password: &#39;test1&#39;})
+    .expect(&#39;Content-type&#39;, /json/)
+    .expect(201)
+    .end(function(err, res) {
+      res.status.should.equal(200);
+      res.body.token.substring(0, 3).should.equal(&#39;JWT&#39;);
+      done();
+    });
+  });
+});</code></pre>
+<ul>
+<li>Run the tests by entering <del>~npm test</del>~ in the terminal window. All going well,you should see results as follows:</li>
+</ul>
+<p><img src="./img/tests.png" alt="User API test results"></p>
+<ul>
+<li><p>Notice that the time for registering and authentication is relatively high - this is probably due to the jwt and bcrypt algorithms.</p>
+</li>
+<li><p><strong>CHALLENGE</strong>: write a test to check a failed authentication attempt (e.g. incorrect password) </p>
+</li>
+</ul>
+
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="04">
+              <h1>Add Passport Authentication</h1>
+<p>Passport strategies are a middleware functions that a requests runs through before getting to the actual route.​ You will now create a JWT strategy and add it to the /api/posts route.</p>
+<ul>
+<li>in the root folder create a new folder called <strong>auth</strong>.</li>
+<li>Create a new file called <strong>/auth/index.js</strong> with the following contents:</li>
+</ul>
+<pre><code class="lang-javascript">import passport from &#39;passport&#39;;
+import passportJWT from &#39;passport-jwt&#39;;
+import UserModel from &#39;./../api/users/userModel&#39;;
+import dotenv from &#39;dotenv&#39;;
+
+dotenv.config();
+
+const JWTStrategy = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
+
+let jwtOptions = {};
+jwtOptions.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
+jwtOptions.secretOrKey = process.env.secret;
+const strategy = new JWTStrategy(jwtOptions, async function(payload, next) {
+  console.log(&#39;payload received&#39;, payload);
+  // usually this would be a database call:
+  const user = await UserModel.find({username: payload});
+  if (user) {
+    next(null, user);
+  } else {
+    next(null, false);
+  }
+});
+
+passport.use(strategy);
+
+export default passport;</code></pre>
+<p>You need to import the jwt configured passport object into the main app script,  <em>/index.js</em>.</p>
+<ul>
+<li>Open <strong>/index.js</strong> and make the following changes to add authentication to the /api/posts/ route:</li>
+</ul>
+<pre><code class="lang-javascript">// import passport configured with JWT strategy​
+import passport from &#39;./auth&#39;;​
+
+…​
+
+// initialise passport​
+app.use(passport.initialize());​
+
+…​
+
+// Add passport.authenticate(..)  to middleware stack for protected routes​
+app.use(&#39;/api/posts&#39;, passport.authenticate(&#39;jwt&#39;, {session: false}), postsRouter);</code></pre>
+<h1>#</h1>
+
+            </div>
+          
+            <div  class="ui tab segment lab" data-tab="05">
+              <h1>Test the Hacker News API</h1>
+<p>Requests for passport protected routes must have a valid JWT token in the HTTP authorization header. Create the following tests to check this is the case...</p>
+<ul>
+<li>Create a new test file <em>/test/testPostsAPI.js</em> with the following content:</li>
+</ul>
+<pre><code class="lang-javascript">import supertest from &#39;supertest&#39;;
+import {app} from &#39;./../index.js&#39;;
+import should from &#39;should&#39;; // eslint-disable-line
+// UNIT test begin
+describe(&#39;Hacker News Posts API unit test&#39;, function() {
+  this.timeout(120000); // eslint-disable-line
+
+
+  // #1 return a collection of json documents
+  it(&#39;should return collection of JSON documents&#39;, function(done) {
+    // calling home page api
+    supertest(app)
+    .get(&#39;/api/posts&#39;)
+    .set(&#39;Authorization&#39;, &#39;BEARER eyJhbGciOiJIUzI1NiJ9.dXNlcjE.FmYria8wq0aFDHnzYWhKQrhF5BkJbFNN1PqNyNQ7V4M&#39;)
+    .expect(&#39;Content-type&#39;, /json/)
+    .expect(200) // This is the HTTP response
+    .end(function(err, res) {
+        // HTTP status should be 200
+        res.status.should.equal(200);
+        done();
+    });
+  });
+
+  it(&#39;should deny access to posts&#39;, function(done) {
+    supertest(app)
+    .get(&#39;/api/posts&#39;)
+    .expect(&#39;Content-type&#39;, /json/)
+    .expect(401) // This is the HTTP response
+    .end(function(err, res) {
+        // HTTP status should be 401
+        res.status.should.equal(401);
+        done();
+    });
+  });
+});</code></pre>
+<ul>
+<li>Run the tests as before. You should see a successfull generated report.</li>
+<li><strong>Challenge</strong>: add further tests for:
+++ creating a post
+++ creating a comment</li>
+<li>Change the authentication to just for creating/updating posts. </li>
+</ul>
+
+            </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).on('keydown', function(e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
+});
+
+      $(document).ready(function() {
+  $('img').addClass('ui image');
+
+  $('.ui.embed').embed();
+
+  const $images = $('.lab img');
+  jQuery.each($images, function(i) {
+    if ($images[i].alt.length > 0) {
+      const divImg = $(document.createElement('div')).addClass(
+        'ui basic segment',
+      );
+      $($images[i]).wrap(divImg);
+      const divLabel = $(document.createElement('div')).addClass(
+        'ui blue ribbon label',
+      );
+      divLabel.append($images[i].alt);
+      $(divLabel).insertBefore($images[i]);
+    }
+  });
+
+  $('.ui.menu .item').tab({
+    history: true,
+    historyType: 'hash',
+  });
+
+  $('.popup').popup();
+
+  $('.ui.sidebar')
+    .sidebar({ context: $('.pushable') })
+    .sidebar('setting', 'transition', 'slide out')
+    .sidebar('attach events', '#toc');
+});
+
+    </script>
+  </body>
+</html>
