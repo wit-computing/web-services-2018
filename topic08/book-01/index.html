@@ -301,6 +301,20 @@ export const loadUsers = () =&gt; {
 });
 };</code></pre>
 <ul>
+<li>Update the main script for the app,  <strong>/index.js</strong>,  to import userdata.js and run the loadUsers() function. Add the following lines of code to <strong>/index.js</strong> in the root folder. </li>
+</ul>
+<pre><code class="lang-javascript">...
+import {loadUsers} from &#39;./usersData&#39;;
+...
+
+// Populate DB with sample data
+if (process.env.seedDb) {
+  loadContacts();
+  loadPosts();
+// ADD THE NEXT LINE :)
+  loadUsers();
+}</code></pre>
+<ul>
 <li>Open a terminal window in the root folder and start the app by entering <code>npm start</code>. Comfirm that the users are being loaded by checking that you see the following console output:</li>
 </ul>
 <pre><code class="lang-bash">[nodemon] starting `babel-node index.js`
