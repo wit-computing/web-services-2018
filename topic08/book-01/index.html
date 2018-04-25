@@ -210,22 +210,21 @@ body
 <p>In this lab you will:</p>
 <ul>
 <li>creating a /api/users route to register and acquire a token</li>
-<li>add authorisation middleware the a /pi/posts route, making it only is available to logged in users with a JSON web token</li>
+<li>add authorisation middleware the api/posts route, making it only is available to users with a valid JSON web token</li>
+<li>update the HackerNews React app to use the API.</li>
+<li>add basic login/signin functionality to HackerNews app.</li>
 </ul>
 <h1>Set up</h1>
-<p>Copy and paste the solution from the last lab(node-lab4) into a new folder called <em>node-lab5</em>. You can find a solution to the last lab <a href="https://github.com/fxwalsh/node-samples-2018.git">here</a>.</p>
+<p>Copy and paste the solution from the last lab(node-lab4) into a new folder called <em>node-lab5</em>. You can find a solution to the last lab <a href="https://github.com/fxwalsh/node-samples-2018.git">here</a> in labs/node-lab4-async.</p>
 <h2>Install dependencies</h2>
 <p>You&#39;ll need the following dependencies to implement the authentication functionality:</p>
 <pre><code class="lang-bash">npm install --save passport passport-jwt jsonwebtoken bcrypt-nodejs</code></pre>
 <h2>Create Mongoose User Model</h2>
-<p>You will need to create a new user model for use in authentication and authorisation.<br>+ Create a new folder <strong>/api/users/</strong> in the root project folder.
-+ Create a new file called <strong>userModel.js</strong> and enter the following code:</p>
+<p>You will need to create a new user model for authentication.<br>+ Create a new folder <strong>/api/users/</strong> in the root project folder. In this folder, create a new file called <strong>userModel.js</strong> and enter the following code:</p>
 <pre><code class="lang-javascript">import mongoose from &#39;mongoose&#39;;
 import bcrypt from  &#39;bcrypt-nodejs&#39;;
 
 const Schema = mongoose.Schema;
-
-
 const UserSchema = new Schema({
   username: {
         type: String,
@@ -268,7 +267,7 @@ UserSchema.methods.comparePassword = function(passw, cb) {
 };
 
 module.exports = mongoose.model(&#39;User&#39;, UserSchema);</code></pre>
-<p>This script defines the schema for a user. Note that it includes a pre-save hook that encrypts the password property before it is saved or updated. Also, a comparePassword() instance method is added to the schema to allow authentication of users.</p>
+<p>This script defines the schema for a user. Note that it includes a pre-save hook that encrypts the password property before it is saved or updated. Also, the comparePassword() instance method can be used to authenticate users.</p>
 <h1>Seed database with User Data</h1>
 <p>For development and testing purposes it would be a good idea to seed the database with some user data.</p>
 <ul>
@@ -301,7 +300,7 @@ export const loadUsers = () =&gt; {
 });
 };</code></pre>
 <ul>
-<li>Update the main script for the app,  <strong>/index.js</strong>,  to import userdata.js and run the loadUsers() function. Add the following lines of code to <strong>/index.js</strong> in the root folder. </li>
+<li>Update the main script for the app,  <strong>/index.js</strong>,  to import userdata.js and run the loadUsers() function. Add the following lines of code to <strong>/index.js</strong> in the root folder.</li>
 </ul>
 <pre><code class="lang-javascript">...
 import {loadUsers} from &#39;./usersData&#39;;
@@ -330,7 +329,9 @@ Server running at 8080
               <h1>User API</h1>
 <p>You will now create the routes for logging in (authentication) and  registering new users.</p>
 <h3>Get Users</h3>
-<p>+In <strong>/api/users/</strong> create a new file called <strong>index.js</strong>. Add the following code to the file:</p>
+<ul>
+<li>In <strong>/api/users/</strong> create a new file called <strong>index.js</strong>. Add the following code to the file:</li>
+</ul>
 <pre><code class="lang-javascript">import express from &#39;express&#39;;
 import User from &#39;./userModel&#39;;
 import asyncHandler from &#39;express-async-handler&#39;;
@@ -350,6 +351,16 @@ router.get(&#39;/&#39;, async (req, res) =&gt; {
 
 export default router;</code></pre>
 <ul>
+<li>Now add the following two lines of code to the  <em>/index.js</em> in the root folder to include this router in the Express app.</li>
+</ul>
+<pre><code class="lang-Javascript">...
+import usersRouter from &#39;./api/users&#39;;
+...
+
+app.use(&#39;/api/users&#39;, usersRouter);
+
+...</code></pre>
+<ul>
 <li>Using Postman (or in a browser), make a HTTP GET request for <a href="http://localhost:8080/api/users">http://localhost:8080/api/users</a>. You should get the following:</li>
 </ul>
 <pre><code class="lang-json">[{&quot;_id&quot;:&quot;5ad4a415d868c95db7089568&quot;,
@@ -363,9 +374,13 @@ export default router;</code></pre>
 <li>Note how the passwords are being hashed before being saved in the database.</li>
 </ul>
 <h3>Register/Authenicate Users</h3>
-<p>We will use the POST on /api/users to both authenticate and register users. We will use the &#39;action&#39; parameter in the query string to distinguish between both actions.</p>
+<p>You will use the POST on /api/users to both authenticate and register users. The &#39;action&#39; parameter in the query string can be used to distinguish between login and signup/register. We will also need to specify a secret environment variable that will be used to create the Javascript web token.</p>
 <ul>
-<li>add the following route to /api/users/index.js</li>
+<li>Add the following entry for the secret variable into the <em>.env</em> file</li>
+</ul>
+<pre><code class="lang-bash">secret=ilikecake</code></pre>
+<ul>
+<li>Add the following route to /api/users/index.js</li>
 </ul>
 <pre><code class="lang-javascript">// Register/login a user, using async handler
 router.post(&#39;/&#39;, asyncHandler(async (req, res) =&gt; {
@@ -398,7 +413,7 @@ router.post(&#39;/&#39;, asyncHandler(async (req, res) =&gt; {
         // return the information including token as JSON
         res.status(200).json({
           success: true,
-          token: &#39;JWT &#39; + token,
+          token: &#39;BEARER &#39; + token,
         });
       } else {
         res.status(401).send({
@@ -409,7 +424,9 @@ router.post(&#39;/&#39;, asyncHandler(async (req, res) =&gt; {
     });
   };
 }));</code></pre>
-<p>The above  funtion checks for both username and password in the request. If the action parameter is set to regester, it attempts to create a new user in the database (using the mongoode user model). Otherwise, it authenticates the user and returns a JWT token signed with the users username.</p>
+<p>The above function checks for both username and password in the request. If the action parameter&#39;s value is &quot;register&quot;, it attempts to create a new user in the database (using the mongoose User model). Otherwise, it authenticates the user, creates the JWT token using the secret and signed with the users username.
+The token is then returned to the client for use in future requests.</p>
+<p>We are now ready to test the User API.</p>
 
             </div>
           
@@ -502,7 +519,6 @@ let jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = process.env.secret;
 const strategy = new JWTStrategy(jwtOptions, async function(payload, next) {
-  console.log(&#39;payload received&#39;, payload);
   // usually this would be a database call:
   const user = await UserModel.find({username: payload});
   if (user) {
@@ -515,6 +531,36 @@ const strategy = new JWTStrategy(jwtOptions, async function(payload, next) {
 passport.use(strategy);
 
 export default passport;</code></pre>
+<p>The above script extracts the user from the token in the request (the payload) and verifys it is a valid username. The user is then passed on to the next middleware, accessable through the request object.</p>
+<p>Update the HackerNews posts API to use the username by adding username field to the post schema and including it in the posts API:
++ Replace PostSchema in /api/posts/postsModel.js with the following:</p>
+<pre><code class="lang-Javascript">const PostSchema = new Schema({
+   title: {type: String, required: true},
+   link: {type: String, optional: true},
+   username: {type: String, required: true},
+   comments: [CommentSchema],
+   upvotes: {type: Number, min: 0, max: 100, default: 0},
+   updated: {
+    type: Date,
+    default: Date.now,
+  },
+ });</code></pre>
+<ul>
+<li>Replace the &quot;Add a post&quot; route with the following code to add the username payload extracted from the JWT token</li>
+</ul>
+<pre><code class="lang-Javascript">...
+// Add a post
+router.post(&#39;/&#39;, asyncHandler(async (req, res) =&gt; {
+    const newPost = req.body;
+    newPost.username = req.user || &#39;anonymous&#39;;
+    if (newPost) {
+          const post = await Post.create(newPost);
+          return res.status(201).send({post});
+      } else {
+         return handleError(res, err);
+      }
+}));
+...</code></pre>
 <p>You need to import the jwt configured passport object into the main app script,  <em>/index.js</em>.</p>
 <ul>
 <li>Open <strong>/index.js</strong> and make the following changes to add authentication to the /api/posts/ route:</li>
@@ -531,7 +577,6 @@ app.use(passport.initialize());​
 
 // Add passport.authenticate(..)  to middleware stack for protected routes​
 app.use(&#39;/api/posts&#39;, passport.authenticate(&#39;jwt&#39;, {session: false}), postsRouter);</code></pre>
-<h1>#</h1>
 
             </div>
           
